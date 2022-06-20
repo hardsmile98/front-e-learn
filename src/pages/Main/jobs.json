@@ -1,0 +1,52 @@
+[
+    {
+        "img": "https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_256.png",
+        "name": "Slack",
+        "position": "Frontent developer",
+        "countResponse": 44,
+        "createAt": "12.03.2022",
+        "salary": "70k+",
+        "employment": "full-time",
+        "type": "удаленная"
+    },
+    {
+        "img": "https://invest-brands.cdn-tinkoff.ru/pinterestx640.png",
+        "name": "Pinterest",
+        "position": "Product manager",
+        "countResponse": 20,
+        "createAt": "21.05.2022",
+        "salary": "90k+",
+        "employment": "full-time",
+        "type": "удаленная"
+    },
+    {
+        "img": "https://i.pinimg.com/originals/03/69/5f/03695f7681a4c4c3a449a1daab5a8b8f.png",
+        "name": "Start",
+        "position": "Backend developer",
+        "countResponse": 12,
+        "createAt": "20.06.2022",
+        "salary": "120k+",
+        "employment": "full-time",
+        "type": "офис"
+    },
+    {
+        "img": "https://t4.ftcdn.net/jpg/03/59/19/55/360_F_359195552_eiA8HBaXYIHZtyzn7lgVmAAWKN83u5IP.jpg",
+        "name": "GoodGreat",
+        "position": "Frontent developer",
+        "countResponse": 75,
+        "createAt": "11.06.2022",
+        "salary": "100k+",
+        "employment": "part-time",
+        "type": "удаленная"
+    },
+    {
+        "img": "https://cdn.worldvectorlogo.com/logos/hq.svg",
+        "name": "Hight",
+        "position": "Backend developer",
+        "countResponse": 17,
+        "createAt": "10.05.2022",
+        "salary": "70k+",
+        "employment": "full-time",
+        "type": "удаленная"
+    }
+]
