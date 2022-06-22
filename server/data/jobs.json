@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "img": "https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_256.png",
         "name": "Slack",
         "position": "Frontent developer",
@@ -10,6 +11,7 @@
         "type": "удаленная"
     },
     {
+        "id": 2,
         "img": "https://invest-brands.cdn-tinkoff.ru/pinterestx640.png",
         "name": "Pinterest",
         "position": "Product manager",
@@ -20,6 +22,7 @@
         "type": "удаленная"
     },
     {
+        "id": 3,
         "img": "https://i.pinimg.com/originals/03/69/5f/03695f7681a4c4c3a449a1daab5a8b8f.png",
         "name": "Start",
         "position": "Backend developer",
@@ -30,6 +33,7 @@
         "type": "офис"
     },
     {
+        "id": 4,
         "img": "https://t4.ftcdn.net/jpg/03/59/19/55/360_F_359195552_eiA8HBaXYIHZtyzn7lgVmAAWKN83u5IP.jpg",
         "name": "GoodGreat",
         "position": "Frontent developer",
@@ -40,6 +44,7 @@
         "type": "удаленная"
     },
     {
+        "id": 5,
         "img": "https://cdn.worldvectorlogo.com/logos/hq.svg",
         "name": "Hight",
         "position": "Backend developer",

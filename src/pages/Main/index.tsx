@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 import { COLORS } from 'mytheme/theme';
 import { IJob } from 'models/job';
 import declOfNum from 'utils/declOfNum';
+import { useGetAllJobsQuery } from 'api/publicApi';
+import Loader from 'components/Loader';
 import Filter from './Filter';
 import Item from './Item';
-import jobs from './jobs.json';
 
 const TextBox = styled.div`
   border-bottom: 1px solid ${COLORS.GREY};
@@ -18,7 +19,8 @@ const CardsBox = styled.div`
 `;
 
 function Main() {
-  const countJobs = jobs.length;
+  const { data: jobs, isLoading } = useGetAllJobsQuery();
+  const countJobs = jobs?.length || 0;
 
   return (
     <div>
@@ -27,13 +29,20 @@ function Main() {
       <CardsBox>
         <TextBox>
           <h2>
-            {`${countJobs} ${declOfNum(countJobs, ['предложение', 'предложения', 'предложений'])}`}
+            {`${countJobs} 
+            ${declOfNum(countJobs, ['предложение', 'предложения', 'предложений'])}`}
           </h2>
         </TextBox>
 
-        <div>
-          {jobs.map((job: IJob) => <Item job={job} />)}
-        </div>
+        {isLoading
+          ? <Loader />
+          : (
+            <div>
+              {jobs?.length
+                ? jobs?.map((job: IJob) => <Item key={job.id} job={job} />)
+                : <p>Нет предложений по работе</p>}
+            </div>
+          )}
       </CardsBox>
     </div>
   );

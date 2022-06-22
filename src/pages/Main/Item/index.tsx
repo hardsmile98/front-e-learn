@@ -4,6 +4,7 @@ import { COLORS, FONTS } from 'mytheme/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { IJob } from 'models/job';
+import { Link } from 'react-router-dom';
 
 const ItemBox = styled.div`
   background-color: ${COLORS.WHITE};
@@ -37,6 +38,9 @@ const LineBox = styled.div`
 
 const PositionBox = styled.div`
   margin: 10px 0;
+  a:hover {
+    color: ${COLORS.PRIMARY};
+  }
 `;
 
 const NameBox = styled.div`
@@ -100,9 +104,11 @@ function Item({ job }: Props) {
         </LineBox>
 
         <PositionBox>
-          <h4>
-            {job.position}
-          </h4>
+          <Link to={`job/${String(job.id)}`}>
+            <h4>
+              {job.position}
+            </h4>
+          </Link>
         </PositionBox>
 
         <LineBox>

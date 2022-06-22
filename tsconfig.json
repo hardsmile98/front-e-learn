@@ -26,6 +26,8 @@
       "@constants/*": ["constants/*"],
       "@models/*": ["models/*"],
       "@utils/*": ["utils/*"],
+      "@store/*": ["store/*"],
+      "@api/*": ["api/*"],
     }
   },
   "include": ["src", "declaration.d.ts"]

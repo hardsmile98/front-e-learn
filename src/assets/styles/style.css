@@ -71,3 +71,7 @@ a {
     cursor: pointer;
     transition: 0.3s all ease;
 }
+
+a {
+    display: inline-block;
+}

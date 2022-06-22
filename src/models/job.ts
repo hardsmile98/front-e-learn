@@ -1,4 +1,5 @@
 export interface IJob {
+  id: number,
   img: string,
   name: string,
   position: string,
