@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { COLORS, FONTS } from 'mytheme/theme';
+import { COLORS } from 'mytheme/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { IJob } from 'models/job';
 import { Link } from 'react-router-dom';
+import Bages from 'components/Bages';
+import Button from 'components/UI/Button';
 
 const ItemBox = styled.div`
   background-color: ${COLORS.WHITE};
@@ -37,7 +39,7 @@ const LineBox = styled.div`
 `;
 
 const PositionBox = styled.div`
-  margin: 10px 0;
+  margin: 8px 0;
   a:hover {
     color: ${COLORS.PRIMARY};
   }
@@ -54,77 +56,49 @@ const NameBox = styled.div`
   }
 `;
 
-const BagesBox = styled.div`
-  display: flex;
-  div {
-    margin-right: 6px;
-    border-radius: 10px;
-    padding: 5px 10px;
-    font-size: ${FONTS.small};
-    border: 1px solid ${COLORS.PRIMARY};
-  }
-`;
-
-const Button = styled.button`
-  background-color: ${COLORS.PRIMARY};
-  color: ${COLORS.WHITE};
-  font-size: ${FONTS.small};
-  border-radius: 10px;
-  font-weight: bold;
-  padding: 10px 20px;
-  :hover{
-    background-color: ${COLORS.PRIMARY_HOVER};
-  }
-`;
-
 type Props = {
   job: IJob
 };
 
 function Item({ job }: Props) {
+  const {
+    id, img, name, countResponse, createAt,
+    position, salary, employment, type,
+  } = job;
+
   return (
     <ItemBox>
       <ImgBox>
-        <img src={job.img} alt="" />
+        <img src={img} alt={name} />
       </ImgBox>
 
       <ContentBox>
         <LineBox>
           <NameBox>
-            <p>{job.name}</p>
+            <p>{name}</p>
             <div>
               <FontAwesomeIcon icon={faUserGroup} />
-              {job.countResponse}
+              {countResponse}
             </div>
           </NameBox>
 
           <div>
-            {job.createAt}
+            {createAt}
           </div>
         </LineBox>
 
         <PositionBox>
-          <Link to={`job/${String(job.id)}`}>
+          <Link to={`job/${String(id)}`}>
             <h4>
-              {job.position}
+              {position}
             </h4>
           </Link>
         </PositionBox>
 
         <LineBox>
-          <BagesBox>
-            <div>
-              {job.salary}
-            </div>
-            <div>
-              {job.employment}
-            </div>
-            <div>
-              {job.type}
-            </div>
-          </BagesBox>
+          <Bages bages={[salary, employment, type]} />
 
-          <Button type="button">
+          <Button onClick={() => {}}>
             Откликнуться
           </Button>
         </LineBox>

@@ -1,3 +1,4 @@
+import Job from 'pages/Job';
 import Main from 'pages/Main';
 import Profile from 'pages/Profile';
 import React from 'react';
@@ -15,6 +16,7 @@ function Routes() {
         <Switch>
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/job/:id" element={<Job />} />
         </Switch>
       </Layout>
     </BrowserRouter>
