@@ -6,12 +6,7 @@ import {
   faMagnifyingGlass, faSliders,
 } from '@fortawesome/free-solid-svg-icons';
 import Input from 'components/UI/Input';
-
-const FilterBox = styled.div`
-  background-color: ${COLORS.WHITE};
-  padding: 20px;
-  border-radius: 10px;
-`;
+import Section from 'components/UI/Section';
 
 const SearchBox = styled.div`
   display: flex;
@@ -60,7 +55,7 @@ function Filter() {
   const [fromSalary, setFromSalary] = useState('');
 
   return (
-    <FilterBox>
+    <Section>
       <SearchBox>
         <InputBox>
           <span>
@@ -85,7 +80,7 @@ function Filter() {
         </SalaryBox>
       </FormBox>
       )}
-    </FilterBox>
+    </Section>
   );
 }
 

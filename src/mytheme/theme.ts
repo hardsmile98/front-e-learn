@@ -4,6 +4,7 @@ export const COLORS = {
   GREY: '#a1a8b4',
   BG: '#dee9fb',
   WHITE: '#fff',
+  WHITE_HOVER: '#eaf3ff',
 };
 
 export const FONTS = {
