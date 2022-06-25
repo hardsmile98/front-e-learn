@@ -5,6 +5,7 @@ import { COLORS, FONTS } from 'mytheme/theme';
 
 interface IVariant {
   variant: 'outlined' | 'fill'
+  fullWidth: boolean,
 }
 
 const ButtonBox = styled.button<IVariant>`
@@ -18,6 +19,7 @@ const ButtonBox = styled.button<IVariant>`
   border-radius: 10px;
   font-weight: bold;
   padding: 10px 20px;
+  width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
   :hover{
     background-color: 
       ${(props) => (props.variant === 'fill' ? COLORS.PRIMARY_HOVER : COLORS.WHITE_HOVER)};
@@ -28,11 +30,19 @@ type Props = {
   children: React.ReactNode;
   onClick: ()=> void,
   variant?: 'outlined' | 'fill',
+  fullWidth?: boolean,
 };
 
-function Button({ children, onClick, variant = 'fill' }: Props) {
+function Button({
+  children, onClick, variant = 'fill', fullWidth = false,
+}: Props) {
   return (
-    <ButtonBox type="button" onClick={onClick} variant={variant}>
+    <ButtonBox
+      type="button"
+      onClick={onClick}
+      variant={variant}
+      fullWidth={fullWidth}
+    >
       {children}
     </ButtonBox>
   );

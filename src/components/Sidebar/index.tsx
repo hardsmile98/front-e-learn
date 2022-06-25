@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareFromSquare } from '@fortawesome/free-regular-svg-icons';
+import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { COLORS } from 'mytheme/theme';
 import ROUTES from 'constants/routes';
@@ -25,11 +26,15 @@ const LogoDescBox = styled.div`
   font-size: 11px;
 `;
 
-const LogoutBox = styled.div`
-  font-weight: 500;
-  padding: 0 30px;
-  text-transform: uppercase;
+const AuthButton = styled.div`
   cursor: pointer;
+  padding: 10px 30px;
+  display: block;
+  border-radius: 10px;
+  :hover{
+    background: ${COLORS.PRIMARY};
+    color: white;
+  }
   svg{
     margin-right: 5px;
   }
@@ -55,6 +60,12 @@ const LinkBox = styled.li`
 `;
 
 function Sidebar() {
+  const isAuth = true;
+
+  const filterRoutes = isAuth
+    ? ROUTES
+    : ROUTES.filter((route) => !route.isNeedAuth);
+
   return (
     <SidebarBox>
       <div>
@@ -68,7 +79,7 @@ function Sidebar() {
         </Link>
 
         <MenuBox>
-          {ROUTES.map((route) => (
+          {filterRoutes.map((route) => (
             <LinkBox key={route.name}>
               <Link to={route.path}>
                 <FontAwesomeIcon icon={route.icon} />
@@ -79,12 +90,26 @@ function Sidebar() {
         </MenuBox>
       </div>
 
-      <LogoutBox>
-        <FontAwesomeIcon
-          icon={faShareFromSquare}
-        />
-        Выход
-      </LogoutBox>
+      {isAuth ? (
+        <AuthButton>
+          <FontAwesomeIcon
+            icon={faShareFromSquare}
+          />
+          Выход
+        </AuthButton>
+      ) : (
+        <div>
+          <LinkBox>
+            <Link to="/auth">
+              <FontAwesomeIcon
+                icon={faArrowRightToBracket}
+              />
+              Вход
+            </Link>
+          </LinkBox>
+        </div>
+      )}
+
     </SidebarBox>
   );
 }

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { COLORS, FONTS } from 'mytheme/theme';
+import { Link } from 'react-router-dom';
 
 const ImgBox = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const ImgBox = styled.div`
     height: 80px;
     object-fit: cover;
   }
-  div {
+  a {
     cursor: pointer;
     font-size: 20px;
     position: absolute;
@@ -49,10 +50,11 @@ function ProfileInfo() {
     <div>
       <ImgBox>
         <img src={INFO.img} alt={INFO.name} />
-        <div>
+        <Link to="/profile">
           <FontAwesomeIcon icon={faBell} />
-        </div>
+        </Link>
       </ImgBox>
+
       <TextBox>
         <p>
           {INFO.name}

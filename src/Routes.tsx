@@ -1,3 +1,4 @@
+import Auth from 'pages/Auth';
 import Job from 'pages/Job';
 import Main from 'pages/Main';
 import Profile from 'pages/Profile';
@@ -17,6 +18,7 @@ function Routes() {
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/job/:id" element={<Job />} />
+          <Route path="/auth" element={<Auth />} />
         </Switch>
       </Layout>
     </BrowserRouter>
