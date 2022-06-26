@@ -8,6 +8,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHearRegular } from '@fortawesome/free-regular-svg-icons';
 import Section from 'components/UI/Section';
 import Button from 'components/UI/Button';
+import useAuth from 'hooks/useAuth';
 
 const LineBox = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ const ButtontBox = styled.div`
 `;
 
 function Detail() {
+  const { isAuth } = useAuth();
   const [isSaved, setIsSaved] = useState(false);
 
   const markdown = `Компания **Slack** 18 лет на рынке IT разработок и
@@ -109,19 +111,24 @@ function Detail() {
         <Markdown markdown={markdown} />
       </ContentBox>
 
-      <ButtontBox>
-        <Button onClick={() => {}}>
-          Откликнуться
-        </Button>
+      {isAuth && (
+        <ButtontBox>
+          <Button onClick={() => {}}>
+            Откликнуться
+          </Button>
 
-        <Button onClick={() => setIsSaved((prev) => !prev)} variant={isSaved ? 'fill' : 'outlined'}>
-          <FontAwesomeIcon
-            icon={isSaved ? faHeart : faHearRegular}
-            style={{ marginRight: '5px' }}
-          />
-          {isSaved ? 'Убрать' : 'Сохранить'}
-        </Button>
-      </ButtontBox>
+          <Button
+            onClick={() => setIsSaved((prev) => !prev)}
+            variant={isSaved ? 'fill' : 'outlined'}
+          >
+            <FontAwesomeIcon
+              icon={isSaved ? faHeart : faHearRegular}
+              style={{ marginRight: '5px' }}
+            />
+            {isSaved ? 'Убрать' : 'Сохранить'}
+          </Button>
+        </ButtontBox>
+      )}
     </Section>
   );
 }

@@ -28,6 +28,7 @@
       "@utils/*": ["utils/*"],
       "@store/*": ["store/*"],
       "@api/*": ["api/*"],
+      "@hooks/*": ["hooks/*"],
     }
   },
   "include": ["src", "declaration.d.ts"]

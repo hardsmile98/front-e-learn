@@ -5,6 +5,7 @@ export const COLORS = {
   BG: '#dee9fb',
   WHITE: '#fff',
   WHITE_HOVER: '#eaf3ff',
+  WARNING: '#ffb300',
 };
 
 export const FONTS = {

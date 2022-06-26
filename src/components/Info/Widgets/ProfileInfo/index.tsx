@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { COLORS, FONTS } from 'mytheme/theme';
 import { Link } from 'react-router-dom';
+import { useGetProfileQuery } from 'api/publicApi';
 
 const ImgBox = styled.div`
   display: flex;
@@ -39,17 +40,14 @@ const PositionBox = styled.div`
   color: ${COLORS.GREY};
 `;
 
-const INFO = {
-  img: 'https://i.pinimg.com/736x/9b/35/0e/9b350e4e231e7104cd69dd3a1971befc.jpg',
-  name: 'Bello Ololade',
-  position: 'Product manager',
-};
-
 function ProfileInfo() {
+  const { data } = useGetProfileQuery();
+  const name = `${data?.name} ${data?.surname}`;
+
   return (
     <div>
       <ImgBox>
-        <img src={INFO.img} alt={INFO.name} />
+        <img src={data?.img} alt={name} />
         <Link to="/profile">
           <FontAwesomeIcon icon={faBell} />
         </Link>
@@ -57,10 +55,10 @@ function ProfileInfo() {
 
       <TextBox>
         <p>
-          {INFO.name}
+          {name}
         </p>
         <PositionBox>
-          {INFO.position}
+          {data?.position}
         </PositionBox>
       </TextBox>
     </div>

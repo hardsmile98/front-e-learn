@@ -7,6 +7,7 @@ import { IJob } from 'models/job';
 import { Link } from 'react-router-dom';
 import Bages from 'components/Bages';
 import Button from 'components/UI/Button';
+import useAuth from 'hooks/useAuth';
 
 const ItemBox = styled.div`
   background-color: ${COLORS.WHITE};
@@ -66,6 +67,8 @@ function Item({ job }: Props) {
     position, salary, employment, type,
   } = job;
 
+  const { isAuth } = useAuth();
+
   return (
     <ItemBox>
       <ImgBox>
@@ -98,9 +101,11 @@ function Item({ job }: Props) {
         <LineBox>
           <Bages bages={[salary, employment, type]} />
 
-          <Button onClick={() => {}}>
-            Откликнуться
-          </Button>
+          {isAuth && (
+            <Button onClick={() => {}}>
+              Откликнуться
+            </Button>
+          )}
         </LineBox>
       </ContentBox>
     </ItemBox>

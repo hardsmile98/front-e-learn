@@ -6,6 +6,7 @@ import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { COLORS } from 'mytheme/theme';
 import ROUTES from 'constants/routes';
+import useAuth from 'hooks/useAuth';
 
 const SidebarBox = styled.div`
   width: 220px;
@@ -60,7 +61,7 @@ const LinkBox = styled.li`
 `;
 
 function Sidebar() {
-  const isAuth = true;
+  const { isAuth, logout } = useAuth();
 
   const filterRoutes = isAuth
     ? ROUTES
@@ -91,7 +92,7 @@ function Sidebar() {
       </div>
 
       {isAuth ? (
-        <AuthButton>
+        <AuthButton onClick={logout}>
           <FontAwesomeIcon
             icon={faShareFromSquare}
           />

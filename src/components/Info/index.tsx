@@ -1,32 +1,22 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import ProfileInfo from './ProfileInfo';
-import Subscribe from './Subscribe';
+import useAuth from 'hooks/useAuth';
 import Banner from './Banner';
+import Widgets from './Widgets';
 
 const InfoBox = styled.div`
   width: 220px;
   height: 100%;
 `;
 
-const WidgetBox = styled.div`
-  margin-bottom: 20px;
-`;
-
 function Infobar() {
+  const { isAuth } = useAuth();
+
   return (
     <InfoBox>
-      <WidgetBox>
-        <ProfileInfo />
-      </WidgetBox>
+      {isAuth && <Widgets />}
 
-      <WidgetBox>
-        <Subscribe />
-      </WidgetBox>
-
-      <div>
-        <Banner />
-      </div>
+      <Banner />
     </InfoBox>
   );
 }
