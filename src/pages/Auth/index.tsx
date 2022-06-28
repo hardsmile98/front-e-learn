@@ -4,6 +4,8 @@ import { COLORS } from 'mytheme/theme';
 import Input from 'components/UI/Input';
 import Button from 'components/UI/Button';
 import useAuth from 'hooks/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
 
 const AuthBox = styled.div`
     background-color: ${COLORS.WHITE};
@@ -20,6 +22,13 @@ const FormBox = styled.div`
   }
 `;
 
+const ErrorBox = styled.div`
+  svg{
+    margin-right: 5px;
+    color: ${COLORS.ERROR};
+  }
+`;
+
 function Auth() {
   const { login } = useAuth();
 
@@ -30,14 +39,16 @@ function Auth() {
   const validate = () => {
     if (loginValue.length > 3 && password.length > 3) {
       setError(false);
+      return true;
     }
     setError(true);
+    return false;
   };
 
   const submitHandler = () => {
     validate();
 
-    if (!error) {
+    if (validate()) {
       login('token');
     }
   };
@@ -61,6 +72,15 @@ function Auth() {
           setValue={setPassword}
           type="password"
         />
+
+        {error && (
+          <ErrorBox>
+            <FontAwesomeIcon
+              icon={faWarning}
+            />
+            Вы ввели некоретные данные
+          </ErrorBox>
+        )}
 
         <Button fullWidth onClick={submitHandler}>
           Войти

@@ -1,0 +1,23 @@
+[
+    {
+        "id": 6,
+        "position": "Backend Developer",
+        "img": "https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_256.png",
+        "name": "Jira",
+        "salary": "80k+"
+      },
+      {
+        "id": 12,
+        "position": "Frontend Developer",
+        "img": "https://i.pinimg.com/originals/03/69/5f/03695f7681a4c4c3a449a1daab5a8b8f.png",
+        "name": "Stars",
+        "salary": "100k-140k+"
+      },
+      {
+        "id": 21,
+        "position": "Manager",
+        "img": "https://cdn.worldvectorlogo.com/logos/hq.svg",
+        "name": "NSHG",
+        "salary": "60k+"
+      }
+]

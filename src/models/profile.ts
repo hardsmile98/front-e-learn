@@ -4,5 +4,6 @@ export interface IProfile {
   surname: string,
   position: string,
   email: string,
-  img: string
+  img: string,
+  savedJobs: Array<number>
 }

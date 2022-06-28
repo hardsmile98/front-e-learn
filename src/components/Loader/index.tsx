@@ -1,24 +1,32 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import styled from '@emotion/styled';
 import { COLORS } from 'mytheme/theme';
 
-const LoaderBox = styled.main`
+type Props = {
+  color?: 'primary' | 'white'
+};
+
+const LoaderBox = styled.main<Props>`
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
 
     div {
-        box-sizing: border-box;
-        display: block;
-        position: absolute;
-        width: 64px;
-        height: 64px;
-        margin: 8px;
-        border: 8px solid ${COLORS.WHITE};
-        border-radius: 50%;
-        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: ${COLORS.WHITE} transparent transparent transparent;
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      margin: 8px;
+      border: 
+        ${(props) => (props.color === 'white' ? `8px solid ${COLORS.WHITE}` : `8px solid ${COLORS.PRIMARY}`)};
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: ${(props) => (props.color === 'white'
+    ? `${COLORS.WHITE} transparent transparent transparent`
+    : `${COLORS.PRIMARY} transparent transparent transparent`)};
     }
 
     div:nth-of-type(1) {
@@ -43,9 +51,9 @@ const LoaderBox = styled.main`
     }
 `;
 
-function Loader() {
+function Loader({ color = 'white' }: Props) {
   return (
-    <LoaderBox>
+    <LoaderBox color={color}>
       <div />
       <div />
       <div />

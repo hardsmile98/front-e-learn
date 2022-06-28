@@ -9,3 +9,7 @@ export interface IJob {
   employment: string,
   type: string,
 }
+
+export interface IJobDetail extends IJob {
+  markdown: string,
+}

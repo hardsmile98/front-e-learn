@@ -6,6 +6,7 @@ export const COLORS = {
   WHITE: '#fff',
   WHITE_HOVER: '#eaf3ff',
   WARNING: '#ffb300',
+  ERROR: '#ff253a',
 };
 
 export const FONTS = {

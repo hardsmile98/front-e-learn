@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { COLORS } from 'mytheme/theme';
 import Bages from 'components/Bages';
@@ -9,6 +10,8 @@ import { faHeart as faHearRegular } from '@fortawesome/free-regular-svg-icons';
 import Section from 'components/UI/Section';
 import Button from 'components/UI/Button';
 import useAuth from 'hooks/useAuth';
+import { useGetJobQuery, useGetProfileQuery } from 'api/publicApi';
+import Loader from 'components/Loader';
 
 const LineBox = styled.div`
   display: flex;
@@ -54,61 +57,60 @@ const ButtontBox = styled.div`
 `;
 
 function Detail() {
+  const { id = '' } = useParams();
+
   const { isAuth } = useAuth();
-  const [isSaved, setIsSaved] = useState(false);
 
-  const markdown = `Компания **Slack** 18 лет на рынке IT разработок и
-  предоставляет только надежные, масштабируемые и эффективные
-  программные решения. Наше направление – крупные проекты
-  федерального и корпоративного уровня в финтех, ритейле,
-  медицине, образовании и других сферах как в России, так и за рубежом.
+  const { data: job, isLoading } = useGetJobQuery(id);
+  const { data: profile } = useGetProfileQuery();
 
-  Мы продолжаем развиваться и расширять бизнес и приглашаем
-  в нашу команду Frontend- разработчиков различных уровней
-  c опытом программирования уровня **Middle** и выше для удаленной
-  работы или в офисе компании.
-  
-  Вы нам подходите, если владеете большинством из перечисленных технологий:
-  - React
-  - Redux или MobX
-  - JavaScript, TypeScript
-  - REST или GraphQL
-  - HTML5 и CSS3
-  - Отличные навыки адаптивной и кросс-браузерной верстки
-  - Material UI или Ant Design или аналог
+  const isSaved = !!profile?.savedJobs.includes(Number(id));
 
-  Для наших сотрудников мы предлагаем:
-  - конкурентный уровень заработной платы
-  (определяется по результатам собеседования), регулярную индексацию;
-  - удаленный формат работы или в комфортном тульском офисе;
-  - возможность обучения, сертификации и участия в конференциях за счет компании;
-  - быстрое профессиональное развитие, рост экспертизы;
-  - взаимодействие по ТК РФ или как с ИП;
-  - активную корпоративную жизнь, разнообразные льготы и компенсации.
+  if (isLoading) {
+    return (
+      <Section>
+        <Loader color="primary" />
+      </Section>
+    );
+  }
 
-  Ждем Вас в нашей команде!`;
+  if (!job) {
+    return (
+      <Section>
+        Неверный запрос! Попробуйте снова.
+      </Section>
+    );
+  }
 
   return (
     <Section>
       <HeadBox>
         <ImgBox>
-          <img src="https://a.slack-edge.com/80588/marketing/img/meta/slack_hash_256.png" alt="slack" />
+          <img src={job?.img} alt={job?.name} />
         </ImgBox>
 
         <HeadContentBox>
           <LineBox>
-            <h2>Frontend Developer</h2>
-            <div>14.06.2022</div>
+            <h2>{job?.position}</h2>
+            <div>{job?.createAt}</div>
           </LineBox>
 
           <p>Slack</p>
 
-          <Bages bages={['80k+', 'full-time', 'офис']} />
+          <Bages
+            bages={[
+              job?.salary,
+              job?.type,
+              job?.employment,
+            ]}
+          />
         </HeadContentBox>
       </HeadBox>
 
       <ContentBox>
-        <Markdown markdown={markdown} />
+        <Markdown
+          markdown={job?.markdown}
+        />
       </ContentBox>
 
       {isAuth && (
@@ -118,7 +120,7 @@ function Detail() {
           </Button>
 
           <Button
-            onClick={() => setIsSaved((prev) => !prev)}
+            onClick={() => {}}
             variant={isSaved ? 'fill' : 'outlined'}
           >
             <FontAwesomeIcon
