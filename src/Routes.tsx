@@ -4,6 +4,7 @@ import Auth from 'pages/Auth';
 import Job from 'pages/Job';
 import Main from 'pages/Main';
 import Profile from 'pages/Profile';
+import AddJob from 'pages/AddJob';
 import {
   BrowserRouter,
   Routes as Switch,
@@ -23,7 +24,10 @@ function Routes() {
           <Route path="/job/:id" element={<Job />} />
 
           {isAuth ? (
-            <Route path="/profile" element={<Profile />} />
+            <>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/add" element={<AddJob />} />
+            </>
           ) : (
             <Route path="/auth" element={<Auth />} />
           )}

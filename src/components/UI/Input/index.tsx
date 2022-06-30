@@ -8,7 +8,7 @@ type Props = {
   placeholder?: string,
   value: string,
   setValue: React.Dispatch<React.SetStateAction<string>>,
-  type?: 'text' | 'password',
+  type?: 'text' | 'password' | 'number',
 };
 
 const InputBox = styled.div`
@@ -28,13 +28,19 @@ const InputBox = styled.div`
 function Input({
   label, value, setValue, placeholder, type = 'text',
 }: Props) {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const targetValue = e.target.value;
+    setValue(targetValue);
+  };
+
   return (
     <InputBox>
       {label && <div>{label}</div>}
+
       <input
         type={type}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={onChange}
         placeholder={placeholder}
       />
     </InputBox>
