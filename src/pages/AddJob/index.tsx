@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import Section from 'components/UI/Section';
 import Input from 'components/UI/Input';
 import Select from 'components/UI/Select';
+import Editor from 'components/Editor';
+import Button from 'components/UI/Button';
 
 const FormAdd = styled.div`
   margin-top: 10px;
@@ -12,11 +14,27 @@ const FormAdd = styled.div`
 `;
 
 const SalaryBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  > div{
-    width: calc(50% - 10px);
+  p{
+    margin-bottom: 5px;
   }
+  > div {
+    display: flex;
+    justify-content: space-between;
+    > div{
+      width: calc(50% - 10px);
+    }
+  }
+`;
+
+const SelectsBox = styled.div`
+  display: flex;
+  > div:not(:last-of-type) {
+    margin-right: 30px;
+  }
+`;
+
+const EditorBox = styled.div`
+  margin-top: 20px;
 `;
 
 function AddJob() {
@@ -24,6 +42,9 @@ function AddJob() {
   const [name, setName] = useState('');
   const [salaryFrom, setSalaryFrom] = useState('');
   const [salaryTo, setSalaryTo] = useState('');
+  const [type, setType] = useState('');
+  const [format, setFormat] = useState('');
+  const [text, setText] = useState('');
 
   return (
     <Section>
@@ -42,9 +63,9 @@ function AddJob() {
           setValue={setName}
         />
 
-        <div>
+        <SalaryBox>
           <p>Зарплата</p>
-          <SalaryBox>
+          <div>
             <Input
               value={salaryFrom}
               setValue={setSalaryFrom}
@@ -57,10 +78,34 @@ function AddJob() {
               placeholder="до"
               type="number"
             />
-          </SalaryBox>
-        </div>
+          </div>
+        </SalaryBox>
 
-        <Select />
+        <SelectsBox>
+          <Select
+            label="Тип занятости"
+            value={type}
+            setValue={setType}
+            options={['full-time', 'part-time']}
+          />
+          <Select
+            label="Формат"
+            value={format}
+            setValue={setFormat}
+            options={['удаленная', 'офис']}
+          />
+        </SelectsBox>
+
+        <EditorBox>
+          <Editor
+            value={text}
+            setValue={setText}
+          />
+        </EditorBox>
+
+        <Button onClick={() => {}}>
+          Добавить
+        </Button>
       </FormAdd>
     </Section>
   );

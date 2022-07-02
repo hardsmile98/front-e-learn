@@ -13,6 +13,9 @@ type Props = {
 
 const InputBox = styled.div`
   width: 100%;
+  p{
+    margin-bottom: 5px;
+  }
   input{
     border: 1px solid ${COLORS.GREY};
     border-radius: 6px;
@@ -35,7 +38,7 @@ function Input({
 
   return (
     <InputBox>
-      {label && <div>{label}</div>}
+      {label && <p>{label}</p>}
 
       <input
         type={type}
