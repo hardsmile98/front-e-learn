@@ -7,7 +7,7 @@ type Props = {
   label?: string,
   placeholder?: string,
   value: string,
-  setValue: React.Dispatch<React.SetStateAction<string>>,
+  setValue: any,
   type?: 'text' | 'password' | 'number',
 };
 

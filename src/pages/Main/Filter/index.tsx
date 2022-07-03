@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { COLORS, FONTS } from 'mytheme/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +8,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Input from 'components/UI/Input';
 import Section from 'components/UI/Section';
+import { RootState } from 'store/store';
+import { changeFilter } from 'store/slices/filter';
 
 const SearchBox = styled.div`
   display: flex;
@@ -50,9 +53,10 @@ const SalaryBox = styled.div`
 `;
 
 function Filter() {
+  const dispatch = useDispatch();
+
   const [isShowFilter, setIsShowFilter] = useState(false);
-  const [toSalary, setToSalary] = useState('');
-  const [fromSalary, setFromSalary] = useState('');
+  const { search, salaryTo, salaryFrom } = useSelector((state: RootState) => state.filter);
 
   return (
     <Section>
@@ -61,7 +65,17 @@ function Filter() {
           <span>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </span>
-          <input type="text" placeholder="Введите название" />
+          <input
+            value={search}
+            type="text"
+            placeholder="Введите название"
+            onChange={
+              (e: React.ChangeEvent<HTMLInputElement>) => dispatch(changeFilter({
+                name: 'search',
+                value: e.target.value,
+              }))
+            }
+          />
         </InputBox>
 
         <ToggleBox onClick={() => setIsShowFilter((prev) => !prev)}>
@@ -74,8 +88,18 @@ function Filter() {
         <SalaryBox>
           <p>Зарплата</p>
           <div>
-            <Input value={toSalary} setValue={setToSalary} placeholder="от" />
-            <Input value={fromSalary} setValue={setFromSalary} placeholder="до" />
+            <Input
+              value={salaryTo}
+              setValue={(value: string) => dispatch(changeFilter({ name: 'salaryTo', value }))}
+              placeholder="от"
+              type="number"
+            />
+            <Input
+              value={salaryFrom}
+              setValue={(value: string) => dispatch(changeFilter({ name: 'salaryFrom', value }))}
+              placeholder="до"
+              type="number"
+            />
           </div>
         </SalaryBox>
       </FormBox>
