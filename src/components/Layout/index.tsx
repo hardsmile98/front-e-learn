@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { COLORS } from 'mytheme/theme';
+import { COLORS, POINTS } from 'mytheme/theme';
 import Infobar from '../Info';
 import Sidebar from '../Sidebar';
 
@@ -14,6 +14,10 @@ const MainBox = styled.main`
   background-color: ${COLORS.BG};
   min-height: 100vh;
   padding: 0 20px;
+  
+  @media (max-width: ${POINTS.md}) {
+    flex-direction: column;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -24,10 +28,22 @@ const ContentBox = styled.div`
   ::-webkit-scrollbar {
     width: 0;
   }
+  @media (max-width: ${POINTS.md}) {
+    height: auto;
+    padding: 0;
+  }
 `;
 
 const SideBox = styled.div`
   padding: 20px 0;
+`;
+
+const InfoBox = styled.div`
+  padding: 20px 0;
+
+  @media (max-width: ${POINTS.lg}) {
+    display: none;
+  }
 `;
 
 function Layout({ children }: LayoutProps) {
@@ -41,9 +57,9 @@ function Layout({ children }: LayoutProps) {
         {children}
       </ContentBox>
 
-      <SideBox>
+      <InfoBox>
         <Infobar />
-      </SideBox>
+      </InfoBox>
     </MainBox>
   );
 }

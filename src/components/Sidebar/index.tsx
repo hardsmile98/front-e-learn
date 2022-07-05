@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareFromSquare } from '@fortawesome/free-regular-svg-icons';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { COLORS } from 'mytheme/theme';
+import { COLORS, POINTS } from 'mytheme/theme';
 import ROUTES from 'constants/routes';
 import useAuth from 'hooks/useAuth';
 
@@ -15,6 +15,12 @@ const SidebarBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding-bottom: 40px;
+
+  @media (max-width: ${POINTS.md}) {
+    width: 100%;
+    flex-direction: row;
+    padding-bottom: 0;
+  }
 `;
 
 const LogoNameBox = styled.div`
@@ -39,10 +45,17 @@ const AuthButton = styled.div`
   svg{
     margin-right: 5px;
   }
+
+  @media (max-width: ${POINTS.md}) {
+    display: none;
+  }
 `;
 
 const MenuBox = styled.ul`
   margin-top: 100px;
+  @media (max-width: ${POINTS.md}) {
+    display: none;
+  }
 `;
 
 const LinkBox = styled.li`

@@ -12,3 +12,9 @@ export const COLORS = {
 export const FONTS = {
   small: '12px',
 };
+
+export const POINTS = {
+  sm: '600px',
+  md: '900px',
+  lg: '1200px',
+};
