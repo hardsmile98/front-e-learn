@@ -10,19 +10,24 @@ interface IVariant {
 
 const ButtonBox = styled.button<IVariant>`
   background-color:
-    ${(props) => (props.variant === 'fill' ? COLORS.PRIMARY : COLORS.WHITE)};
+    ${(props) => (props.variant === 'fill' ? COLORS.BG : COLORS.WHITE)};
   color:
-    ${(props) => (props.variant === 'fill' ? COLORS.WHITE : COLORS.PRIMARY)};
+    ${(props) => (props.variant === 'fill' ? COLORS.WHITE : COLORS.BG)};
   border:
-    ${(props) => (props.variant === 'fill' ? '1px solid transparent' : `1px solid ${COLORS.PRIMARY}`)};
+    ${(props) => (props.variant === 'fill' ? '1px solid transparent' : `1px solid ${COLORS.BG}`)};
   font-size: ${FONTS.small};
   border-radius: 10px;
   font-weight: bold;
   padding: 10px 20px;
   width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
-  :hover{
+  :disabled {
+    cursor: not-allowed;
+    background-color: ${COLORS.DISABLE};
+    color: ${COLORS.GREY};
+  }
+  :not([disabled]):hover{
     background-color: 
-      ${(props) => (props.variant === 'fill' ? COLORS.PRIMARY_HOVER : COLORS.WHITE_HOVER)};
+      ${(props) => (props.variant === 'fill' ? COLORS.BG_HOVER : COLORS.WHITE_HOVER)};
   }
 `;
 
@@ -31,10 +36,11 @@ type Props = {
   onClick: ()=> void,
   variant?: 'outlined' | 'fill',
   fullWidth?: boolean,
+  disabled?: boolean,
 };
 
 function Button({
-  children, onClick, variant = 'fill', fullWidth = false,
+  children, onClick, variant = 'fill', fullWidth = false, disabled,
 }: Props) {
   return (
     <ButtonBox
@@ -42,6 +48,7 @@ function Button({
       onClick={onClick}
       variant={variant}
       fullWidth={fullWidth}
+      disabled={disabled}
     >
       {children}
     </ButtonBox>

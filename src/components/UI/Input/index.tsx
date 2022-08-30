@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import styled from '@emotion/styled';
-import { COLORS } from 'mytheme/theme';
+import { COLORS, FONTS } from 'mytheme/theme';
 
 type Props = {
   label?: string,
@@ -15,15 +15,17 @@ const InputBox = styled.div`
   width: 100%;
   p{
     margin-bottom: 5px;
+    font-size: ${FONTS.small};
   }
   input{
     border: 1px solid ${COLORS.GREY};
     border-radius: 6px;
     height: 34px;
     padding: 0 10px;
+    font-size: ${FONTS.input};
     width: 100%;
     :focus {
-      border-color: ${COLORS.PRIMARY};
+      border-color: ${COLORS.BG};
     }
   }
 `;

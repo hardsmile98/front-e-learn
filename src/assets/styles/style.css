@@ -26,10 +26,16 @@
     font-weight: 300;
 }
 
+html,
 body {
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
     color: #3f4959;
+    height: 100%;
+}
+
+body>div {
+    height: 100%;
 }
 
 * {

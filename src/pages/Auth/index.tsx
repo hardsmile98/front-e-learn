@@ -1,91 +1,87 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { COLORS } from 'mytheme/theme';
-import Input from 'components/UI/Input';
-import Button from 'components/UI/Button';
-import useAuth from 'hooks/useAuth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import {
+  COLORS, FONTS, UNIT, UNIT2,
+} from 'mytheme/theme';
+import bg from 'assets/imgs/bg.svg';
+import logo from 'assets/imgs/logo.svg';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 const AuthBox = styled.div`
-    background-color: ${COLORS.WHITE};
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 480px;
-    margin: 60px auto 0;
+  background-image: url(${bg});
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+`;
+
+const WrapperBox = styled.div`
+  padding: 50px 0;
 `;
 
 const FormBox = styled.div`
-  margin-top: 10px;
-  div{
-    margin-bottom: 10px;
+  background-color: ${COLORS.WHITE};
+  color: ${COLORS.BG};
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: ${UNIT2};
+  border-radius: ${UNIT};
+`;
+
+const TextBox = styled.div`
+  text-align: center;
+  border-bottom: 1px solid ${COLORS.GREY};
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+  h3 {
+    font-weight: bold;
+  }
+  p {
+    font-size: ${FONTS.small};
+    color: ${COLORS.SECONDARY};
   }
 `;
 
-const ErrorBox = styled.div`
-  svg{
-    margin-right: 5px;
-    color: ${COLORS.ERROR};
+const ControlsBox = styled.div`
+  > div {
+    margin-top: 10px;
   }
 `;
 
 function Auth() {
-  const { login } = useAuth();
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
-  const [loginValue, setLoginValue] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-
-  const validate = () => {
-    if (loginValue.length > 3 && password.length > 3) {
-      setError(false);
-      return true;
-    }
-    setError(true);
-    return false;
-  };
-
-  const submitHandler = () => {
-    validate();
-
-    if (validate()) {
-      login('token');
-    }
+  const changeForm = () => {
+    setIsLoginForm((prev) => !prev);
   };
 
   return (
     <AuthBox>
-      <h2>
-        Вход
-      </h2>
+      <WrapperBox>
+        <FormBox>
+          <TextBox>
+            <img src={logo} alt="logo" />
+            <h3>
+              E-LEARN
+            </h3>
+            <p>
+              Учи английский вместе с нами
+            </p>
+          </TextBox>
 
-      <FormBox>
-        <Input
-          placeholder="login"
-          value={loginValue}
-          setValue={setLoginValue}
-        />
-
-        <Input
-          placeholder="Пароль"
-          value={password}
-          setValue={setPassword}
-          type="password"
-        />
-
-        {error && (
-          <ErrorBox>
-            <FontAwesomeIcon
-              icon={faWarning}
-            />
-            Вы ввели некоретные данные
-          </ErrorBox>
-        )}
-
-        <Button fullWidth onClick={submitHandler}>
-          Войти
-        </Button>
-      </FormBox>
+          <ControlsBox>
+            {isLoginForm
+              ? <LoginForm changeForm={changeForm} />
+              : <RegisterForm changeForm={changeForm} />}
+          </ControlsBox>
+        </FormBox>
+      </WrapperBox>
     </AuthBox>
   );
 }

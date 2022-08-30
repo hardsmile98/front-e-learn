@@ -31,5 +31,5 @@
       "@hooks/*": ["hooks/*"],
     }
   },
-  "include": ["src", "declaration.d.ts"]
+  "include": ["src", "declaration.d.ts", "webpack.config.js"]
 }

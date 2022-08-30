@@ -1,44 +1,60 @@
-import React from 'react';
-import useAuth from 'hooks/useAuth';
-import Auth from 'pages/Auth';
-import Job from 'pages/Job';
-import Main from 'pages/Main';
-import Profile from 'pages/Profile';
-import AddJob from 'pages/AddJob';
+import React, { Suspense } from 'react';
 import {
   BrowserRouter,
   Routes as Switch,
   Route,
   Navigate,
 } from 'react-router-dom';
-import Layout from './components/Layout';
+import Loader from 'components/Loader';
+import styled from '@emotion/styled';
+import { COLORS } from 'mytheme/theme';
+import Layout from 'components/Layout';
+
+const Container = styled.div`
+  background-color: ${COLORS.BG};
+  height: 100%;
+  color: ${COLORS.WHITE};
+`;
+
+const Auth = React.lazy(() => import('pages/Auth'));
+const Profile = React.lazy(() => import('pages/Profile'));
+
+function Main() {
+  return (
+    <Layout>
+      <Switch>
+        <Route path="/" element={<Profile />} />
+        <Route
+          path="*"
+          element={<Navigate to="/" />}
+        />
+      </Switch>
+    </Layout>
+  );
+}
 
 function Routes() {
-  const { isAuth } = useAuth();
+  const isAuth = true;
 
   return (
-    <BrowserRouter>
-      <Layout>
-        <Switch>
-          <Route path="/" element={<Main />} />
-          <Route path="/job/:id" element={<Job />} />
+    <Suspense fallback={<Loader />}>
+      <Container>
+        <BrowserRouter>
+          <Switch>
+            {isAuth ? (
+              <Route path="/*" element={<Main />} />
+            ) : (
+              <Route path="/" element={<Auth />} />
+            )}
 
-          {isAuth ? (
-            <>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/add" element={<AddJob />} />
-            </>
-          ) : (
-            <Route path="/auth" element={<Auth />} />
-          )}
-
-          <Route
-            path="*"
-            element={<Navigate to="/" />}
-          />
-        </Switch>
-      </Layout>
-    </BrowserRouter>
+            <Route
+              path="*"
+              element={<Navigate to="/" />}
+            />
+          </Switch>
+        </BrowserRouter>
+      </Container>
+    </Suspense>
   );
 }
 
