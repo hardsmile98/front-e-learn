@@ -10,9 +10,11 @@ export const COLORS = {
   WARNING: '#ffb300',
   ERROR: '#ff253a',
   DISABLE: '#dddddd',
+  BORDER: '#24284a',
 };
 
 export const FONTS = {
+  bigSmall: '10px',
   small: '12px',
   input: '14px',
 };

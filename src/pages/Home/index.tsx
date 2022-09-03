@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Profile() {
+function Home() {
   return (
     <div>index</div>
   );
 }
 
-export default Profile;
+export default Home;

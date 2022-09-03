@@ -1,4 +1,6 @@
 import React, { Suspense } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
 import {
   BrowserRouter,
   Routes as Switch,
@@ -17,13 +19,13 @@ const Container = styled.div`
 `;
 
 const Auth = React.lazy(() => import('pages/Auth'));
-const Profile = React.lazy(() => import('pages/Profile'));
+const Home = React.lazy(() => import('pages/Home'));
 
 function Main() {
   return (
     <Layout>
       <Switch>
-        <Route path="/" element={<Profile />} />
+        <Route path="/" element={<Home />} />
         <Route
           path="*"
           element={<Navigate to="/" />}
@@ -34,7 +36,7 @@ function Main() {
 }
 
 function Routes() {
-  const isAuth = true;
+  const { isAuth } = useSelector((state:RootState) => state.auth);
 
   return (
     <Suspense fallback={<Loader />}>

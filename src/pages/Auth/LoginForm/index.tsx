@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { FONTS } from 'mytheme/theme';
 import Input from 'components/UI/Input';
 import Button from 'components/UI/Button';
 import Alert from 'components/UI/Alert';
+import { changeIsAuth } from 'store/slices/auth';
 
 const NewAccountBox = styled.div`
   font-size: ${FONTS.small};
@@ -16,12 +18,18 @@ type Props = {
 };
 
 function LoginForm({ changeForm }: Props) {
+  const dispatch = useDispatch();
+
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
   console.log(setError);
 
   const isDisable = !login || !password;
+
+  const loginHandler = () => {
+    dispatch(changeIsAuth(true));
+  };
 
   return (
     <>
@@ -46,7 +54,7 @@ function LoginForm({ changeForm }: Props) {
         <Button
           disabled={isDisable}
           fullWidth
-          onClick={() => setError((prev) => !prev)}
+          onClick={loginHandler}
         >
           Войти
         </Button>

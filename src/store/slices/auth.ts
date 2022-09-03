@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    isAuth: !!window.localStorage.getItem('TOKEN') || false,
+    isAuth: false,
   },
   reducers: {
     changeIsAuth: (state, action) => { state.isAuth = action.payload; },

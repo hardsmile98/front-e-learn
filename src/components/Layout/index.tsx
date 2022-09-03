@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { COLORS } from 'mytheme/theme';
+import Navbar from './Navbar';
+import Sidebar from './Sidebar';
 
 type Props = {
-  children: any,
+  children: React.ReactNode,
 };
 
 const LayoutBox = styled.div`
@@ -12,6 +15,8 @@ const LayoutBox = styled.div`
 
 const MainBox = styled.div`
     flex-grow: 1;
+    border-left: 1px solid ${COLORS.BG_HOVER};
+    border-right: 1px solid ${COLORS.BG_HOVER};
 `;
 
 const NavBox = styled.div`
@@ -26,7 +31,7 @@ function Layout({ children }: Props) {
   return (
     <LayoutBox>
       <NavBox>
-        navigation
+        <Navbar />
       </NavBox>
 
       <MainBox>
@@ -34,7 +39,7 @@ function Layout({ children }: Props) {
       </MainBox>
 
       <SideBox>
-        sidebar
+        <Sidebar />
       </SideBox>
     </LayoutBox>
   );

@@ -1,17 +1,27 @@
-export default [
+type IIcon = 'home' | 'learn' | 'logout';
+
+interface IRoutesMap {
+  name: string;
+  path: string;
+  iconName: IIcon,
+}
+
+const routes:Array<IRoutesMap> = [
   {
     path: '/',
     name: 'Домой',
-    isNeedAuth: false,
+    iconName: 'home',
   },
   {
-    path: '/profile',
-    name: 'Профиль',
-    isNeedAuth: true,
+    path: '/learn',
+    name: 'Обучение',
+    iconName: 'learn',
   },
   {
-    path: '/add',
-    name: 'Добавить',
-    isNeedAuth: true,
+    path: '/logout',
+    name: 'Выход',
+    iconName: 'logout',
   },
 ];
+
+export default routes;
