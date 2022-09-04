@@ -10,18 +10,18 @@ type Props = {
 const LoaderBox = styled.main<Props>`
     display: inline-block;
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
 
     div {
       box-sizing: border-box;
       display: block;
       position: absolute;
-      width: 64px;
-      height: 64px;
+      width: 40px;
+      height: 40px;
       margin: 8px;
       border: 
-        ${(props) => (props.color === 'white' ? `8px solid ${COLORS.WHITE}` : `8px solid ${COLORS.PRIMARY}`)};
+        ${(props) => (props.color === 'white' ? `6px solid ${COLORS.WHITE}` : `6px solid ${COLORS.PRIMARY}`)};
       border-radius: 50%;
       animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
       border-color: ${(props) => (props.color === 'white'

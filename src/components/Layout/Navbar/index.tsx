@@ -6,7 +6,6 @@ import Progress from './Progress';
 
 const NavbarBox = styled.div`
   height: 100%;
-  padding: ${UNIT2};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

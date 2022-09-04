@@ -11,6 +11,7 @@ import Loader from 'components/Loader';
 import styled from '@emotion/styled';
 import { COLORS } from 'mytheme/theme';
 import Layout from 'components/Layout';
+import Logout from 'components/Logout';
 
 const Container = styled.div`
   background-color: ${COLORS.BG};
@@ -20,11 +21,14 @@ const Container = styled.div`
 
 const Auth = React.lazy(() => import('pages/Auth'));
 const Home = React.lazy(() => import('pages/Home'));
+const Learn = React.lazy(() => import('pages/Learn'));
 
 function Main() {
   return (
     <Layout>
       <Switch>
+        <Route path="/learn/:id" element={<Learn />} />
+        <Route path="/learn" element={<Learn />} />
         <Route path="/" element={<Home />} />
         <Route
           path="*"
@@ -44,7 +48,10 @@ function Routes() {
         <BrowserRouter>
           <Switch>
             {isAuth ? (
-              <Route path="/*" element={<Main />} />
+              <>
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/*" element={<Main />} />
+              </>
             ) : (
               <Route path="/" element={<Auth />} />
             )}
