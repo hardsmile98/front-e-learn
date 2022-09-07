@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
+    "module": "commonjs",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es6",
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,7 +15,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -21,15 +22,16 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
-      "@mytheme/*": ["mytheme/*"],
-      "@assets/*": ["assets/*"],
-      "@constants/*": ["constants/*"],
-      "@models/*": ["models/*"],
-      "@utils/*": ["utils/*"],
-      "@store/*": ["store/*"],
-      "@api/*": ["api/*"],
-      "@hooks/*": ["hooks/*"],
+      "mytheme/*": ["mytheme/*"],
+      "assets/*": ["assets/*"],
+      "constants/*": ["constants/*"],
+      "models/*": ["models/*"],
+      "utils/*": ["utils/*"],
+      "store/*": ["store/*"],
+      "api/*": ["api/*"],
+      "hooks/*": ["hooks/*"],
     }
   },
-  "include": ["src", "declaration.d.ts", "webpack.config.js"]
+  "include": ["src", "server", "declaration.d.ts", "webpack.config.js"],
+  "exclude": ["node_modules"]
 }
