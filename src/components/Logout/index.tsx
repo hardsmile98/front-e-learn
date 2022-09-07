@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import PageLoader from 'components/PageLoader';
+import { useLogoutMutation } from 'api/publicApi';
 
 function Logout() {
+  const [onLogout] = useLogoutMutation();
+
   useEffect(() => {
-    // logout
+    onLogout({});
   }, []);
 
   return <PageLoader title="Выходим..." />;

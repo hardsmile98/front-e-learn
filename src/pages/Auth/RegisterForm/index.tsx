@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { FONTS } from 'mytheme/theme';
 import Input from 'components/UI/Input';
 import Button from 'components/UI/Button';
 import Alert from 'components/UI/Alert';
+import { useRegisterMutation } from 'api/publicApi';
 
 const NewAccountBox = styled.div`
   font-size: ${FONTS.small};
@@ -16,16 +17,28 @@ type Props = {
 };
 
 function RegisterForm({ changeForm }: Props) {
-  const [login, setLogin] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  console.log(setError);
+  const [login, setLogin] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const [onRegister, { isError, isLoading, isSuccess }] = useRegisterMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setLogin('');
+      setName('');
+      setPassword('');
+    }
+  }, [isSuccess]);
 
   const isDisable = login.trim().length < 3 || password.trim().length < 5 || !name.trim();
 
   const registerHander = () => {
-    // Register
+    onRegister({
+      login,
+      name,
+      password,
+    });
   };
 
   return (
@@ -55,7 +68,7 @@ function RegisterForm({ changeForm }: Props) {
 
       <div>
         <Button
-          disabled={isDisable}
+          disabled={isDisable || isLoading}
           fullWidth
           onClick={registerHander}
         >
@@ -64,10 +77,17 @@ function RegisterForm({ changeForm }: Props) {
       </div>
 
       <Alert
-        text="Неправильный логин или пароль"
+        text="Ошибка!"
         type="ERROR"
         aling="center"
-        visible={error}
+        visible={isError}
+      />
+
+      <Alert
+        text="Пользователь зарегистрирован"
+        type="INFO"
+        aling="center"
+        visible={isSuccess}
       />
     </>
   );

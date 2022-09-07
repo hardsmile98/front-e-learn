@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { FONTS } from 'mytheme/theme';
@@ -6,6 +6,7 @@ import Input from 'components/UI/Input';
 import Button from 'components/UI/Button';
 import Alert from 'components/UI/Alert';
 import { changeIsAuth } from 'store/slices/auth';
+import { useLoginMutation } from 'api/publicApi';
 
 const NewAccountBox = styled.div`
   font-size: ${FONTS.small};
@@ -20,15 +21,21 @@ type Props = {
 function LoginForm({ changeForm }: Props) {
   const dispatch = useDispatch();
 
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  console.log(setError);
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const [onLogin, { isError, isLoading, isSuccess }] = useLoginMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(changeIsAuth(true));
+    }
+  }, [isSuccess]);
 
   const isDisable = !login || !password;
 
   const loginHandler = () => {
-    dispatch(changeIsAuth(true));
+    onLogin({ login, password });
   };
 
   return (
@@ -52,7 +59,7 @@ function LoginForm({ changeForm }: Props) {
 
       <div>
         <Button
-          disabled={isDisable}
+          disabled={isDisable || isLoading}
           fullWidth
           onClick={loginHandler}
         >
@@ -64,7 +71,7 @@ function LoginForm({ changeForm }: Props) {
         text="Неправильный логин или пароль"
         type="ERROR"
         aling="center"
-        visible={error}
+        visible={isError}
       />
     </>
   );

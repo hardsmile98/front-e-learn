@@ -1,28 +1,40 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import getEnvProps from 'utils/getEnvProps';
+import { ILoginForm, IRegisterForm } from 'models/auth';
 
 export const publicApi = createApi({
   reducerPath: 'publicApi',
-  baseQuery: fetchBaseQuery({ baseUrl: getEnvProps.publicApiURL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: getEnvProps.publicApiURL,
+  }),
   endpoints: (builder) => ({
-    getAllJobs: builder.query<Array<any>, void>({
-      query: () => '/api/jobs',
+    login: builder.mutation({
+      query: (loginFormData: ILoginForm) => ({
+        url: '/api/v1/auth/login',
+        method: 'POST',
+        body: loginFormData,
+      }),
     }),
-    getProfile: builder.query<any, void>({
-      query: () => '/api/profile',
+
+    register: builder.mutation({
+      query: (regFormData: IRegisterForm) => ({
+        url: '/api/v1/auth/register',
+        method: 'POST',
+        body: regFormData,
+      }),
     }),
-    getJob: builder.query<any, string>({
-      query: (id) => `/api/job/${id}`,
-    }),
-    getRecommends: builder.query<Array<any>, void>({
-      query: () => '/api/recommends',
+
+    logout: builder.mutation({
+      query: () => ({
+        url: '/api/v1/auth/logout',
+        method: 'POST',
+      }),
     }),
   }),
 });
 
 export const {
-  useGetAllJobsQuery,
-  useGetProfileQuery,
-  useGetJobQuery,
-  useGetRecommendsQuery,
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
 } = publicApi;
