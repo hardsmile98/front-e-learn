@@ -6,6 +6,7 @@ import {
 import { MdOutlineStarPurple500 as StarIcon } from 'react-icons/md';
 import ProgressBar from 'components/UI/ProgressBar';
 import Calendar from 'components/UI/Calendar';
+import { publicApi } from 'api/publicApi';
 
 const StatisticsBox = styled.div`
   background-color: ${COLORS.BG_HOVER};
@@ -36,38 +37,31 @@ const ProgressBox = styled.div`
 `;
 
 function Statistics() {
-  const progressOfDays = {
-    Mo: false,
-    Tu: false,
-    We: true,
-    Th: false,
-    Fr: true,
-    Sa: false,
-    Su: false,
-  };
+  const { data } = publicApi.endpoints.profileInfo.useQueryState({});
+  const { level, visit } = data || {};
 
   return (
     <StatisticsBox>
       <div>
         <LevelBox>
           <StarIcon />
-          Уровень 1
+          {`Уровень ${level.value}`}
         </LevelBox>
 
         <ProgressBox>
           <ProgressBar
-            value={13}
-            range={90}
+            value={level.count}
+            range={level.all}
           />
         </ProgressBox>
 
         <CountBox>
-          13 / 90
+          {`${level.count} / ${level.all}`}
         </CountBox>
       </div>
 
       <div>
-        <Calendar progressOfDays={progressOfDays} />
+        <Calendar progressOfDays={visit} />
       </div>
     </StatisticsBox>
   );

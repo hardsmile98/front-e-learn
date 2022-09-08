@@ -6,4 +6,5 @@ export default [
 
   // Profile
   { path: '/api/v1/profile/me', method: 'get', data: 'good.json' },
+  { path: '/api/v1/profile/info', method: 'get', data: 'profileInfo.json' },
 ];

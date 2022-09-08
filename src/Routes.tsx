@@ -12,7 +12,7 @@ import { COLORS } from 'mytheme/theme';
 import Layout from 'components/Layout';
 import Logout from 'components/Logout';
 import PageLoader from 'components/PageLoader';
-import { useProfileInfoQuery } from 'api/publicApi';
+import { useProfileMeQuery, useProfileInfoQuery } from 'api/publicApi';
 import { changeIsAuth } from 'store/slices/auth';
 
 const Container = styled.div`
@@ -26,6 +26,12 @@ const Home = React.lazy(() => import('pages/Home'));
 const Learn = React.lazy(() => import('pages/Learn'));
 
 function Main() {
+  const { isLoading } = useProfileInfoQuery({});
+
+  if (isLoading) {
+    return <PageLoader title="Загрузка..." />;
+  }
+
   return (
     <Layout>
       <Switch>
@@ -45,7 +51,7 @@ function Routes() {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state:RootState) => state.auth);
 
-  const { data = {}, error, isLoading } = useProfileInfoQuery({});
+  const { data = {}, error, isLoading } = useProfileMeQuery({});
   const { success: isSuccessAuth } = data;
 
   useEffect(() => {

@@ -61,7 +61,7 @@ function Calendar({ progressOfDays } :Props) {
   return (
     <CalendarBox>
       {days.map((day: string) => (
-        <DayBox>
+        <DayBox key={day}>
           <CheckerBox check={progressOfDays[day]}>
             {progressOfDays[day] ? <Check /> : <Close />}
           </CheckerBox>

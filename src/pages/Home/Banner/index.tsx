@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { COLORS, UNIT, UNIT2 } from 'mytheme/theme';
+import { publicApi } from 'api/publicApi';
 
 const BannnerBox = styled.div`
   padding: ${UNIT2};
@@ -16,11 +17,14 @@ const InfoBox = styled.div`
 `;
 
 function Bannner() {
+  const { data } = publicApi.endpoints.profileInfo.useQueryState({});
+  const { name } = data || {};
+
   return (
     <BannnerBox>
       <InfoBox>
         <h2>
-          Добро пожаловать, Денис
+          {`Добро пожаловать, ${name}`}
         </h2>
         <div>
           Изучаем английский вместе

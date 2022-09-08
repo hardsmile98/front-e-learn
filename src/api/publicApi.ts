@@ -35,8 +35,12 @@ export const publicApi = createApi({
       }),
     }),
 
-    profileInfo: builder.query({
+    profileMe: builder.query({
       query: () => '/api/v1/profile/me',
+    }),
+
+    profileInfo: builder.query({
+      query: () => '/api/v1/profile/info',
     }),
   }),
 });
@@ -45,5 +49,6 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useLogoutMutation,
+  useProfileMeQuery,
   useProfileInfoQuery,
 } = publicApi;

@@ -1,0 +1,19 @@
+{
+    "name": "Денис",
+    "balance": 0,
+    "words": 0,
+    "level": {
+        "value": 1,
+        "count": 0,
+        "all": 20
+    },
+    "visit": {
+        "Mo": false,
+        "Tu": false,
+        "We": true,
+        "Th": false,
+        "Fr": true,
+        "Sa": false,
+        "Su": false
+    }
+}
