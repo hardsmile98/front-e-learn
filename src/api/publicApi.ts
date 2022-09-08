@@ -6,6 +6,10 @@ export const publicApi = createApi({
   reducerPath: 'publicApi',
   baseQuery: fetchBaseQuery({
     baseUrl: getEnvProps.publicApiURL,
+    prepareHeaders(headers) {
+      return headers;
+    },
+    credentials: 'include',
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -30,6 +34,10 @@ export const publicApi = createApi({
         method: 'POST',
       }),
     }),
+
+    profileInfo: builder.query({
+      query: () => '/api/v1/profile/me',
+    }),
   }),
 });
 
@@ -37,4 +45,5 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useLogoutMutation,
+  useProfileInfoQuery,
 } = publicApi;

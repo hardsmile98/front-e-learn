@@ -17,8 +17,8 @@ const LoaderBox = styled.main<Props>`
       box-sizing: border-box;
       display: block;
       position: absolute;
-      width: 40px;
-      height: 40px;
+      width: 100%;
+      height: 100%;
       margin: 8px;
       border: 
         ${(props) => (props.color === 'white' ? `6px solid ${COLORS.WHITE}` : `6px solid ${COLORS.PRIMARY}`)};

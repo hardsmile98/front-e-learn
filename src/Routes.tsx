@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import {
   BrowserRouter,
@@ -7,11 +7,13 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import Loader from 'components/Loader';
 import styled from '@emotion/styled';
 import { COLORS } from 'mytheme/theme';
 import Layout from 'components/Layout';
 import Logout from 'components/Logout';
+import PageLoader from 'components/PageLoader';
+import { useProfileInfoQuery } from 'api/publicApi';
+import { changeIsAuth } from 'store/slices/auth';
 
 const Container = styled.div`
   background-color: ${COLORS.BG};
@@ -40,10 +42,30 @@ function Main() {
 }
 
 function Routes() {
+  const dispatch = useDispatch();
   const { isAuth } = useSelector((state:RootState) => state.auth);
 
+  const { data = {}, error, isLoading } = useProfileInfoQuery({});
+  const { success: isSuccessAuth } = data;
+
+  useEffect(() => {
+    if (error) {
+      dispatch(changeIsAuth(false));
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isSuccessAuth) {
+      dispatch(changeIsAuth(true));
+    }
+  }, [isSuccessAuth]);
+
+  if (isLoading) {
+    return <PageLoader title="Загрузка..." />;
+  }
+
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<PageLoader title="Загрузка..." />}>
       <Container>
         <BrowserRouter>
           <Switch>

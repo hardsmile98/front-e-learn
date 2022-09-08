@@ -9,6 +9,7 @@ type Props = {
 };
 
 const PageLoaderBox = styled.div`
+  background-color: ${COLORS.BG};
   height: 100%;
   display: flex;
   align-items: center;
