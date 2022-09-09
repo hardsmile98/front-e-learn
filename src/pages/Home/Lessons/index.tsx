@@ -1,6 +1,9 @@
 import React from 'react';
+import { useGetCoursesQuery } from 'api/publicApi';
 import styled from '@emotion/styled';
 import { UNIT } from 'mytheme/theme';
+import { ICourse } from 'models';
+import Loader from 'components/Loader';
 import Lesson from './Lesson';
 
 const LessonsBox = styled.div`
@@ -8,20 +11,33 @@ const LessonsBox = styled.div`
 `;
 
 function Lessons() {
+  const { data: courses, isLoading } = useGetCoursesQuery({});
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div>
       <h4>
         Доступные курсы
       </h4>
 
-      <LessonsBox>
-        <Lesson
-          id={1}
-          name="Курс №1 (Основы)"
-          progressValue={43}
-          progressRange={100}
-        />
-      </LessonsBox>
+      {(courses || []).map((course: ICourse) => {
+        const { id, name, progress } = course;
+
+        return (
+          <LessonsBox>
+            <Lesson
+              key={id}
+              id={id}
+              name={name}
+              progressValue={progress.value}
+              progressRange={progress.all}
+            />
+          </LessonsBox>
+        );
+      })}
     </div>
   );
 }

@@ -1,0 +1,65 @@
+{
+    "moneyForWord": 2,
+    "words": [
+        {
+            "id": 1,
+            "word": "work",
+            "translate": "работа",
+            "type": "learn"
+        },
+        {
+            "id": 2,
+            "word": "repeat",
+            "translate": "повторить",
+            "type": "learn"
+        },
+        {
+            "id": 3,
+            "word": "home",
+            "translate": "дом",
+            "type": "learn"
+        },
+        {
+            "id": 4,
+            "word": "joke",
+            "translate": "шутка",
+            "type": "learn"
+        },
+        {
+            "id": 5,
+            "word": "room",
+            "translate": "комната",
+            "type": "learn"
+        },
+        {
+            "id": 6,
+            "word": "want",
+            "translate": "хотеть",
+            "type": "learn"
+        },
+        {
+            "id": 7,
+            "word": "how",
+            "translate": "как",
+            "type": "learn"
+        },
+        {
+            "id": 8,
+            "word": "time",
+            "translate": "время",
+            "type": "learn"
+        },
+        {
+            "id": 9,
+            "word": "big",
+            "translate": "большой",
+            "type": "learn"
+        },
+        {
+            "id": 10,
+            "word": "picture",
+            "translate": "картина",
+            "type": "learn"
+        }
+    ]
+}

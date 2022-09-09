@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import getEnvProps from 'utils/getEnvProps';
-import { ILoginForm, IRegisterForm } from 'models/auth';
+import {
+  ILoginForm,
+  IRegisterForm,
+} from 'models';
 
 export const publicApi = createApi({
   reducerPath: 'publicApi',
@@ -42,6 +45,10 @@ export const publicApi = createApi({
     profileInfo: builder.query({
       query: () => '/api/v1/profile/info',
     }),
+
+    getCourses: builder.query({
+      query: () => '/api/v1/course',
+    }),
   }),
 });
 
@@ -51,4 +58,5 @@ export const {
   useLogoutMutation,
   useProfileMeQuery,
   useProfileInfoQuery,
+  useGetCoursesQuery,
 } = publicApi;
