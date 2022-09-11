@@ -12,7 +12,12 @@ import { COLORS } from 'mytheme/theme';
 import Layout from 'components/Layout';
 import Logout from 'components/Logout';
 import PageLoader from 'components/PageLoader';
-import { useProfileMeQuery, useProfileInfoQuery } from 'api/publicApi';
+import BonusModal from 'components/BonusModal';
+import {
+  useProfileMeQuery,
+  useProfileInfoQuery,
+  useAccrueBonusMutation,
+} from 'api/publicApi';
 import { changeIsAuth } from 'store/slices/auth';
 
 const Container = styled.div`
@@ -26,24 +31,42 @@ const Home = React.lazy(() => import('pages/Home'));
 const Learn = React.lazy(() => import('pages/Learn'));
 
 function Main() {
-  const { isLoading } = useProfileInfoQuery({});
+  const { data = {}, isLoading } = useProfileInfoQuery({});
+  const { isFirstEntry } = data;
+
+  const [accureBonus, {
+    isSuccess: isSuccessAccureBonus, data: dataAccure = {},
+  }] = useAccrueBonusMutation();
+  const { coins } = dataAccure;
+
+  useEffect(() => {
+    if (isFirstEntry) {
+      accureBonus({});
+    }
+  }, [isFirstEntry]);
 
   if (isLoading) {
     return <PageLoader title="Загрузка..." />;
   }
 
   return (
-    <Layout>
-      <Switch>
-        <Route path="/learn/:id" element={<Learn />} />
-        <Route path="/learn" element={<Learn />} />
-        <Route path="/" element={<Home />} />
-        <Route
-          path="*"
-          element={<Navigate to="/" />}
-        />
-      </Switch>
-    </Layout>
+    <>
+      <Layout>
+        <Switch>
+          <Route path="/learn/:id" element={<Learn />} />
+          <Route path="/learn" element={<Learn />} />
+          <Route path="/" element={<Home />} />
+          <Route
+            path="*"
+            element={<Navigate to="/" />}
+          />
+        </Switch>
+      </Layout>
+
+      {isSuccessAccureBonus && (
+        <BonusModal coins={coins} />
+      )}
+    </>
   );
 }
 

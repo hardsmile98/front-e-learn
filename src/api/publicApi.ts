@@ -14,6 +14,7 @@ export const publicApi = createApi({
     },
     credentials: 'include',
   }),
+  tagTypes: ['Profile'],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (loginFormData: ILoginForm) => ({
@@ -44,10 +45,19 @@ export const publicApi = createApi({
 
     profileInfo: builder.query({
       query: () => '/api/v1/profile/info',
+      providesTags: ['Profile'],
     }),
 
     getCourses: builder.query({
       query: () => '/api/v1/course',
+    }),
+
+    accrueBonus: builder.mutation({
+      query: () => ({
+        url: '/api/v1/profile/accure',
+        method: 'POST',
+      }),
+      invalidatesTags: ['Profile'],
     }),
   }),
 });
@@ -59,4 +69,5 @@ export const {
   useProfileMeQuery,
   useProfileInfoQuery,
   useGetCoursesQuery,
+  useAccrueBonusMutation,
 } = publicApi;

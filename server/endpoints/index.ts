@@ -7,6 +7,7 @@ export default [
   // Profile
   { path: '/api/v1/profile/me', method: 'get', data: 'good.json' },
   { path: '/api/v1/profile/info', method: 'get', data: 'profileInfo.json' },
+  { path: '/api/v1/profile/accure', method: 'post', data: 'accure.json' },
 
   // Course
   { path: '/api/v1/course', method: 'get', data: 'course.json' },

@@ -2,6 +2,7 @@
     "name": "Денис",
     "balance": 0,
     "words": 0,
+    "isFirstEntry": false,
     "level": {
         "value": 1,
         "count": 0,
