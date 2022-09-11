@@ -38,7 +38,7 @@ const ProgressBox = styled.div`
 
 function Statistics() {
   const { data } = publicApi.endpoints.profileInfo.useQueryState({});
-  const { level, visit } = data || {};
+  const { level = {}, visit = {} } = data || {};
 
   return (
     <StatisticsBox>

@@ -24,10 +24,10 @@ export const publicApi = createApi({
     }),
 
     register: builder.mutation({
-      query: (regFormData: IRegisterForm) => ({
+      query: (registerFormData: IRegisterForm) => ({
         url: '/api/v1/auth/register',
         method: 'POST',
-        body: regFormData,
+        body: registerFormData,
       }),
     }),
 

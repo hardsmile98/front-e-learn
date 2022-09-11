@@ -20,6 +20,8 @@ interface IMap {
   [index: string]: string;
 }
 
+const sortOrder = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+
 const MapWeekendDays: IMap = {
   Mo: 'Пн',
   Tu: 'Вт',
@@ -56,7 +58,8 @@ const CheckerBox = styled.div<IChecker>`
 `;
 
 function Calendar({ progressOfDays } :Props) {
-  const days = Object.keys(progressOfDays);
+  const days = Object.keys(progressOfDays)
+    .sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b));
 
   return (
     <CalendarBox>
