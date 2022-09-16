@@ -14,6 +14,11 @@ const PageLoaderBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  > div{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const TitleBox = styled.div`

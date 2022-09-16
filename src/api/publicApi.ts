@@ -59,6 +59,10 @@ export const publicApi = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
+
+    getLearnWords: builder.query({
+      query: ({ id }) => `/api/v1/learn/${id}`,
+    }),
   }),
 });
 
@@ -70,4 +74,5 @@ export const {
   useProfileInfoQuery,
   useGetCoursesQuery,
   useAccrueBonusMutation,
+  useGetLearnWordsQuery,
 } = publicApi;

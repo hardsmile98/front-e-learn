@@ -19,7 +19,6 @@ const LoaderBox = styled.main<Props>`
       position: absolute;
       width: 100%;
       height: 100%;
-      margin: 8px;
       border: 
         ${(props) => (props.color === 'white' ? `6px solid ${COLORS.WHITE}` : `6px solid ${COLORS.PRIMARY}`)};
       border-radius: 50%;
