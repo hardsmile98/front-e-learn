@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import ProgressBar from 'components/UI/ProgressBar';
 import lesson from 'assets/imgs/lesson.svg';
 import { MdNavigateNext as Next } from 'react-icons/md';
-// import LearnWord from './LearnWord';
 import { useGetLearnWordsQuery } from 'api/publicApi';
 import PageLoader from 'components/PageLoader';
+import LearnWord from './LearnWord';
 import RepeatWord from './RepeatWord';
 import {
   LearnBox,
@@ -19,15 +19,19 @@ function Learn() {
   const { id = undefined } = useParams();
 
   const [countMoney, setCountMoney] = useState(0);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [answer, setAnswer] = useState(null);
-  console.log(setCountMoney, setCurrentWordIndex, setAnswer);
+  console.log(setCountMoney, setCurrentIndex, setAnswer, answer);
+
+  const isDisableNext = false;
 
   const { data, isLoading } = useGetLearnWordsQuery({ id }, {});
-  console.log(data);
+
+  const countWords = data?.words?.length || 1;
+  const currentWord = data?.words[currentIndex] || {};
 
   const next = () => {
-    setCurrentWordIndex((prev) => prev + 1);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   if (isLoading) {
@@ -43,8 +47,8 @@ function Learn() {
       <ProgressBox>
         <ProgressBar
           height={30}
-          value={currentWordIndex + 1}
-          range={10}
+          value={currentIndex + 1}
+          range={countWords}
         />
 
         <CountMoneyBox>
@@ -54,22 +58,24 @@ function Learn() {
       </ProgressBox>
 
       <ContentBox>
-        {/* <LearnWord
-          word="lesson"
-          translate="урок"
-        /> */}
-
-        <RepeatWord
-          words={['money', 'word', 'repeat', 'job']}
-          translate="деньги"
-          answer={0}
-        />
+        {currentWord.type === 'learn' ? (
+          <LearnWord
+            word={currentWord.word}
+            translate={currentWord.translate}
+          />
+        ) : (
+          <RepeatWord
+            words={currentWord.words}
+            translate={currentWord.translate}
+            answer={currentWord.answer}
+          />
+        )}
       </ContentBox>
 
       <Button
         onClick={next}
         type="button"
-        disabled={!answer}
+        disabled={isDisableNext}
       >
         Далее
         <Next />

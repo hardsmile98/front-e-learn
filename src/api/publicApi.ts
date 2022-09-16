@@ -3,7 +3,10 @@ import getEnvProps from 'utils/getEnvProps';
 import {
   ILoginForm,
   IRegisterForm,
+  ILearnResponse,
+  IWord,
 } from 'models';
+import { shuffle } from 'utils';
 
 export const publicApi = createApi({
   reducerPath: 'publicApi',
@@ -62,6 +65,28 @@ export const publicApi = createApi({
 
     getLearnWords: builder.query({
       query: ({ id }) => `/api/v1/learn/${id}`,
+      transformResponse: (response: ILearnResponse) => {
+        const learWords = response.words || [];
+        const arrayAllWords = learWords.map((word: IWord) => (word.word));
+        const repeatWords = shuffle(learWords).map((word: any) => {
+          const wordsWithoutCurrent = shuffle(arrayAllWords.filter((w) => w !== word.word));
+          const words = shuffle([word.word, ...wordsWithoutCurrent.slice(0, 3)]);
+          const answer = words.indexOf(word.word);
+
+          return {
+            ...word,
+            words,
+            type: 'repeat',
+            answer,
+          };
+        });
+
+        return {
+          ...response,
+          words: [...learWords, ...repeatWords],
+          arrayAllWords,
+        };
+      },
     }),
   }),
 });
