@@ -8,6 +8,8 @@ type Props = {
   words: Array<string>,
   translate: string,
   answer: number,
+  makeAnswer: any,
+  selectAnswer: number | null,
 };
 
 const TitleBox = styled.div`
@@ -26,9 +28,25 @@ const SelectBox = styled.div`
   flex-wrap: wrap;
 `;
 
-const WordBox = styled.div`
+const RightBox = styled.div`
+  margin-top: ${UNIT};
+  color: ${COLORS.SECONDARY};
+  span {
+    margin-left: 5px;
+    color: ${COLORS.WHITE};
+  }
+`;
+
+interface IWordBox {
+  isRight: boolean,
+  isWrong: boolean,
+}
+
+const WordBox = styled.div<IWordBox>`
   width: calc(50% - 4px);
   border: 1px solid ${COLORS.BORDER};
+  border-color: ${(props) => (props.isRight ? COLORS.SUCCESS : undefined)};
+  border-color: ${(props) => (props.isWrong ? COLORS.ERROR : undefined)};
   padding: ${UNIT2};
   margin-top: ${UNIT};
   border-radius: ${UNIT};
@@ -36,7 +54,7 @@ const WordBox = styled.div`
   cursor: pointer;
   transition: 0.2s all ease;
   :hover{
-    border-color: ${COLORS.GREY};
+    border-color: ${(props) => (props.isRight || props.isWrong ? undefined : COLORS.GREY)};
   }
   
   span {
@@ -54,13 +72,9 @@ const WordBox = styled.div`
   }
 `;
 
-function RepeatWord({ words, translate, answer }: Props) {
-  const onAnswer = (select: number) => {
-    if (answer === select) {
-      console.log('is right');
-    }
-  };
-
+function RepeatWord({
+  words, translate, answer, makeAnswer, selectAnswer,
+}: Props) {
   return (
     <div>
       <TitleBox>
@@ -73,7 +87,15 @@ function RepeatWord({ words, translate, answer }: Props) {
 
       <SelectBox>
         {words.map((word, index) => (
-          <WordBox onClick={() => onAnswer(index)}>
+          <WordBox
+            onClick={() => {
+              if (selectAnswer === null) {
+                makeAnswer(index);
+              }
+            }}
+            isRight={selectAnswer === index && selectAnswer === answer}
+            isWrong={selectAnswer === index && selectAnswer !== answer}
+          >
             <span>
               {index + 1}
             </span>
@@ -81,6 +103,13 @@ function RepeatWord({ words, translate, answer }: Props) {
           </WordBox>
         ))}
       </SelectBox>
+
+      {selectAnswer !== null && selectAnswer !== answer && (
+        <RightBox>
+          Правильный ответ:
+          <span>{words[answer]}</span>
+        </RightBox>
+      )}
     </div>
   );
 }

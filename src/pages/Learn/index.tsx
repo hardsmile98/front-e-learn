@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ProgressBar from 'components/UI/ProgressBar';
 import lesson from 'assets/imgs/lesson.svg';
 import { MdNavigateNext as Next } from 'react-icons/md';
@@ -17,21 +17,36 @@ import {
 
 function Learn() {
   const { id = undefined } = useParams();
+  const navigate = useNavigate();
 
   const [countMoney, setCountMoney] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answer, setAnswer] = useState(null);
-  console.log(setCountMoney, setCurrentIndex, setAnswer, answer);
-
-  const isDisableNext = false;
+  const [answer, setAnswer] = useState<number | null>(null);
 
   const { data, isLoading } = useGetLearnWordsQuery({ id }, {});
 
-  const countWords = data?.words?.length || 1;
+  const countWords = data?.words?.length || 0;
+  const moneyForWord = data?.moneyForWord || 2;
   const currentWord = data?.words[currentIndex] || {};
+
+  const makeAnswer = (value: number) => {
+    if (value === currentWord.answer) {
+      setCountMoney((prev) => prev + moneyForWord);
+    }
+    setAnswer(value);
+  };
+
+  const isDisableNext = currentWord.type === 'repeat' && answer === null;
+
+  const isFinish = countWords - 1 !== currentIndex;
 
   const next = () => {
     setCurrentIndex((prev) => prev + 1);
+    setAnswer(null);
+  };
+
+  const finish = () => {
+    navigate('/');
   };
 
   if (isLoading) {
@@ -68,18 +83,31 @@ function Learn() {
             words={currentWord.words}
             translate={currentWord.translate}
             answer={currentWord.answer}
+            makeAnswer={makeAnswer}
+            selectAnswer={answer}
           />
         )}
       </ContentBox>
 
-      <Button
-        onClick={next}
-        type="button"
-        disabled={isDisableNext}
-      >
-        Далее
-        <Next />
-      </Button>
+      {isFinish ? (
+        <Button
+          onClick={next}
+          type="button"
+          disabled={isDisableNext}
+        >
+          Далее
+          <Next />
+        </Button>
+      ) : (
+        <Button
+          onClick={finish}
+          type="button"
+          disabled={isDisableNext}
+        >
+          Завершить
+          <Next />
+        </Button>
+      )}
     </LearnBox>
   );
 }

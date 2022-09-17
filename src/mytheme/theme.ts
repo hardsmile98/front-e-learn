@@ -9,6 +9,7 @@ export const COLORS = {
   WHITE_HOVER: '#eaf3ff',
   WARNING: '#ffb300',
   ERROR: '#ff253a',
+  SUCCESS: '#00FF33',
   DISABLE: '#dddddd',
   BORDER: '#24284a',
 };

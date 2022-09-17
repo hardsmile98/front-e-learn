@@ -17,7 +17,7 @@ export const publicApi = createApi({
     },
     credentials: 'include',
   }),
-  tagTypes: ['Profile'],
+  tagTypes: ['Profile', 'Course'],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (loginFormData: ILoginForm) => ({
@@ -53,6 +53,7 @@ export const publicApi = createApi({
 
     getCourses: builder.query({
       query: () => '/api/v1/course',
+      providesTags: ['Course'],
     }),
 
     accrueBonus: builder.mutation({
@@ -61,6 +62,19 @@ export const publicApi = createApi({
         method: 'POST',
       }),
       invalidatesTags: ['Profile'],
+    }),
+
+    finishLearn: builder.mutation({
+      query: ({ courseId, money, wordIds }) => ({
+        url: '/api/v1/learn/finish',
+        method: 'POST',
+        body: {
+          courseId,
+          money,
+          wordIds,
+        },
+      }),
+      invalidatesTags: ['Profile', 'Course'],
     }),
 
     getLearnWords: builder.query({
@@ -100,4 +114,5 @@ export const {
   useGetCoursesQuery,
   useAccrueBonusMutation,
   useGetLearnWordsQuery,
+  useFinishLearnMutation,
 } = publicApi;
