@@ -88,6 +88,7 @@ function RepeatWord({
       <SelectBox>
         {words.map((word, index) => (
           <WordBox
+            key={word}
             onClick={() => {
               if (selectAnswer === null) {
                 makeAnswer(index);

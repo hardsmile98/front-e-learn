@@ -78,7 +78,7 @@ export const publicApi = createApi({
     }),
 
     getLearnWords: builder.query({
-      query: ({ id }) => `/api/v1/learn/${id}`,
+      query: ({ courseId }) => `/api/v1/learn/${courseId}`,
       transformResponse: (response: ILearnResponse) => {
         const learWords = response.words || [];
         const arrayAllWords = learWords.map((word: IWord) => (word.word));
@@ -99,6 +99,7 @@ export const publicApi = createApi({
           ...response,
           words: [...learWords, ...repeatWords],
           arrayAllWords,
+          ids: response.words.map((word) => word.id),
         };
       },
     }),

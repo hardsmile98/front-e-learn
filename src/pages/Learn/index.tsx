@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import ProgressBar from 'components/UI/ProgressBar';
 import lesson from 'assets/imgs/lesson.svg';
 import { MdNavigateNext as Next } from 'react-icons/md';
-import { useGetLearnWordsQuery } from 'api/publicApi';
+import { useGetLearnWordsQuery, useFinishLearnMutation } from 'api/publicApi';
 import PageLoader from 'components/PageLoader';
 import LearnWord from './LearnWord';
 import RepeatWord from './RepeatWord';
@@ -17,35 +17,52 @@ import {
 
 function Learn() {
   const { id = undefined } = useParams();
+  const courseId = Number(id);
   const navigate = useNavigate();
 
   const [countMoney, setCountMoney] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answer, setAnswer] = useState<number | null>(null);
+  const [selectAnswer, setSelectAnswer] = useState<number | null>(null);
 
-  const { data, isLoading } = useGetLearnWordsQuery({ id }, {});
+  const [finishLearn] = useFinishLearnMutation();
+  const { data, isLoading } = useGetLearnWordsQuery({ courseId }, {});
 
   const countWords = data?.words?.length || 0;
   const moneyForWord = data?.moneyForWord || 2;
   const currentWord = data?.words[currentIndex] || {};
+  const wordIds = data?.ids;
+
+  const {
+    type,
+    word,
+    translate,
+    words,
+    answer,
+  } = currentWord;
 
   const makeAnswer = (value: number) => {
     if (value === currentWord.answer) {
       setCountMoney((prev) => prev + moneyForWord);
     }
-    setAnswer(value);
+
+    setSelectAnswer(value);
   };
 
-  const isDisableNext = currentWord.type === 'repeat' && answer === null;
+  const isDisableNext = type === 'repeat' && selectAnswer === null;
 
   const isFinish = countWords - 1 !== currentIndex;
 
   const next = () => {
     setCurrentIndex((prev) => prev + 1);
-    setAnswer(null);
+    setSelectAnswer(null);
   };
 
   const finish = () => {
+    finishLearn({
+      courseId,
+      money: countMoney,
+      wordIds,
+    });
     navigate('/');
   };
 
@@ -75,16 +92,16 @@ function Learn() {
       <ContentBox>
         {currentWord.type === 'learn' ? (
           <LearnWord
-            word={currentWord.word}
-            translate={currentWord.translate}
+            word={word}
+            translate={translate}
           />
         ) : (
           <RepeatWord
-            words={currentWord.words}
-            translate={currentWord.translate}
-            answer={currentWord.answer}
+            words={words}
+            translate={translate}
+            answer={answer}
             makeAnswer={makeAnswer}
-            selectAnswer={answer}
+            selectAnswer={selectAnswer}
           />
         )}
       </ContentBox>
