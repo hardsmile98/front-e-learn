@@ -13,5 +13,6 @@ export default [
   { path: '/api/v1/course', method: 'get', data: 'course.json' },
 
   // Larn
+  { path: '/api/v1/learn/finish', method: 'post', data: 'good.json' },
   { path: '/api/v1/learn/*', method: 'get', data: 'learn.json' },
 ];
