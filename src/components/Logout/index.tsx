@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PageLoader from 'components/PageLoader';
-import { useLogoutMutation } from 'api/publicApi';
+import { publicApi, useLogoutMutation } from 'api/publicApi';
 import { changeIsAuth } from 'store/slices/auth';
 
 function Logout() {
@@ -15,6 +15,7 @@ function Logout() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(changeIsAuth(false));
+      dispatch(publicApi.util.resetApiState());
     }
   }, [isSuccess]);
 
