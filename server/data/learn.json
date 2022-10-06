@@ -4,62 +4,52 @@
         {
             "id": 1,
             "word": "work",
-            "translate": "работа",
-            "type": "learn"
+            "translate": "работа"
         },
         {
             "id": 2,
             "word": "repeat",
-            "translate": "повторить",
-            "type": "learn"
+            "translate": "повторить"
         },
         {
             "id": 3,
             "word": "home",
-            "translate": "дом",
-            "type": "learn"
+            "translate": "дом"
         },
         {
             "id": 4,
             "word": "joke",
-            "translate": "шутка",
-            "type": "learn"
+            "translate": "шутка"
         },
         {
             "id": 5,
             "word": "room",
-            "translate": "комната",
-            "type": "learn"
+            "translate": "комната"
         },
         {
             "id": 6,
             "word": "want",
-            "translate": "хотеть",
-            "type": "learn"
+            "translate": "хотеть"
         },
         {
             "id": 7,
             "word": "how",
-            "translate": "как",
-            "type": "learn"
+            "translate": "как"
         },
         {
             "id": 8,
             "word": "time",
-            "translate": "время",
-            "type": "learn"
+            "translate": "время"
         },
         {
             "id": 9,
             "word": "big",
-            "translate": "большой",
-            "type": "learn"
+            "translate": "большой"
         },
         {
             "id": 10,
             "word": "picture",
-            "translate": "картина",
-            "type": "learn"
+            "translate": "картина"
         }
     ]
 }

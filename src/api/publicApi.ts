@@ -80,8 +80,10 @@ export const publicApi = createApi({
     getLearnWords: builder.query({
       query: ({ courseId }) => `/api/v1/learn/${courseId}`,
       transformResponse: (response: ILearnResponse) => {
-        const learWords = response.words || [];
+        const learWords = response.words.map((word) => ({ ...word, type: 'learn' })) || [];
+
         const arrayAllWords = learWords.map((word: IWord) => (word.word));
+
         const repeatWords = shuffle(learWords).map((word: any) => {
           const wordsWithoutCurrent = shuffle(arrayAllWords.filter((w) => w !== word.word));
           const words = shuffle([word.word, ...wordsWithoutCurrent.slice(0, 3)]);
