@@ -86,7 +86,7 @@ function RepeatWord({
       </TranslateBox>
 
       <SelectBox>
-        {words.map((word, index) => (
+        {(words || []).map((word, index) => (
           <WordBox
             key={word}
             onClick={() => {

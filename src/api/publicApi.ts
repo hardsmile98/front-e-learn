@@ -78,7 +78,12 @@ export const publicApi = createApi({
     }),
 
     getLearnWords: builder.query({
-      query: ({ courseId }) => `/api/v1/learn/${courseId}`,
+      query: ({ courseId }) => ({
+        url: '/api/v1/learn',
+        params: {
+          courseId,
+        },
+      }),
       transformResponse: (response: ILearnResponse) => {
         const learWords = response.words.map((word) => ({ ...word, type: 'learn' })) || [];
 

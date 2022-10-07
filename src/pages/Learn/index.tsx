@@ -16,8 +16,8 @@ import {
 } from './styles';
 
 function Learn() {
-  const { id = undefined } = useParams();
-  const courseId = Number(id);
+  const { id } = useParams();
+  const courseId = Number(id) || undefined;
   const navigate = useNavigate();
 
   const [countMoney, setCountMoney] = useState(0);
