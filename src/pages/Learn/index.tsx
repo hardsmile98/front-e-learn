@@ -5,6 +5,7 @@ import lesson from 'assets/imgs/lesson.svg';
 import { MdNavigateNext as Next } from 'react-icons/md';
 import { useGetLearnWordsQuery, useFinishLearnMutation } from 'api/publicApi';
 import PageLoader from 'components/PageLoader';
+import ErrorPage from 'components/ErrorPage';
 import LearnWord from './LearnWord';
 import RepeatWord from './RepeatWord';
 import {
@@ -25,7 +26,7 @@ function Learn() {
   const [selectAnswer, setSelectAnswer] = useState<number | null>(null);
 
   const [finishLearn] = useFinishLearnMutation();
-  const { data, isLoading } = useGetLearnWordsQuery({ courseId }, {});
+  const { data, isLoading, isError } = useGetLearnWordsQuery({ courseId }, {});
 
   const countWords = data?.words?.length || 0;
   const moneyForWord = data?.moneyForWord || 2;
@@ -70,6 +71,15 @@ function Learn() {
     return (
       <PageLoader
         title="Получаем слова..."
+      />
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorPage
+        title="Ошибка"
+        error="Не удалось получить данные, попробуйте позже"
       />
     );
   }
