@@ -13,7 +13,7 @@ const routes:Array<IRoutesMap> = [
     iconName: 'home',
   },
   {
-    path: '/learn',
+    path: '/learn/1',
     name: 'Обучение',
     iconName: 'learn',
   },

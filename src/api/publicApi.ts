@@ -66,7 +66,7 @@ export const publicApi = createApi({
 
     finishLearn: builder.mutation({
       query: ({ courseId, money, wordIds }) => ({
-        url: '/api/v1/learn/finish',
+        url: '/api/v1/course/learn',
         method: 'POST',
         body: {
           courseId,
@@ -79,13 +79,13 @@ export const publicApi = createApi({
 
     getLearnWords: builder.query({
       query: ({ courseId }) => ({
-        url: '/api/v1/learn',
+        url: '/api/v1/course/learn',
         params: {
           courseId,
         },
       }),
       transformResponse: (response: ILearnResponse) => {
-        const learWords = response.words.map((word) => ({ ...word, type: 'learn' })) || [];
+        const learWords = (response.words || []).map((word) => ({ ...word, type: 'learn' })) || [];
 
         const arrayAllWords = learWords.map((word: IWord) => (word.word));
 
@@ -106,7 +106,7 @@ export const publicApi = createApi({
           ...response,
           words: [...learWords, ...repeatWords],
           arrayAllWords,
-          ids: response.words.map((word) => word.id),
+          ids: (response.words || []).map((word) => word.id),
         };
       },
     }),
