@@ -12,5 +12,5 @@ export default [
   // Course
   { path: '/api/v1/course', method: 'get', data: 'course.json' },
   { path: '/api/v1/course/learn', method: 'post', data: 'good.json' },
-  { path: '/api/v1/course/learn/*', method: 'get', data: 'learn.json' },
+  { path: '/api/v1/course/learn', method: 'get', data: 'learn.json' },
 ];

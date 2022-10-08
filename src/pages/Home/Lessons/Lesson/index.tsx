@@ -6,6 +6,7 @@ import {
 import ProgressBar from 'components/UI/ProgressBar';
 import { Link } from 'react-router-dom';
 import lesson from 'assets/imgs/lesson.svg';
+import money from 'assets/imgs/money.svg';
 
 const LessonBox = styled.div`
   background-color: ${COLORS.BG_HOVER};
@@ -58,10 +59,12 @@ type Props = {
 function Lesson({
   id, name, progressValue, progressRange,
 } : Props) {
+  const isFinishCourse = progressValue === progressRange;
+
   return (
     <LessonBox>
       <Icon>
-        <img src={lesson} alt="lesson" />
+        <img src={isFinishCourse ? money : lesson} alt="lesson" />
       </Icon>
 
       <InfoBox>
@@ -78,11 +81,13 @@ function Lesson({
           {`Прогресс: ${progressValue} / ${progressRange}`}
         </ProgressBox>
 
-        <LinkBox>
-          <Link to={`/learn/${id}`}>
-            Изучать новые слова
-          </Link>
-        </LinkBox>
+        {!isFinishCourse && (
+          <LinkBox>
+            <Link to={`/learn/${id}`}>
+              Изучать новые слова
+            </Link>
+          </LinkBox>
+        )}
       </InfoBox>
     </LessonBox>
   );
