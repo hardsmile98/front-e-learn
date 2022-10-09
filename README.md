@@ -31,10 +31,10 @@ yarn
 /* Then start the React app */
 yarn dev
 
-/* Then start web  */
+/* Then start web */
 yarn dev:web
 
-/* Then start mock server  */
+/* Then start mock server */
 yarn dev:api
 
 ```
