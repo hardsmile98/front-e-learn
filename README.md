@@ -4,7 +4,7 @@
 
 ### Basic Overview - [Live Demo](https://e-learn-english.netlify.app/)
 
-This simple learn english application how React with Typescript, React hooks, react Context and Styled Components.
+This simple learn english application how React with Typescript, React hooks and Styled Components.
 
 - Backend repository [here](https://github.com/hardsmile98/backend-e-learn)
 
