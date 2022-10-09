@@ -1,5 +1,7 @@
 import useIsMobile from './useIsMobile';
+import useOnClickOutside from './useOnClickOutside';
 
-export default {
+export {
   useIsMobile,
+  useOnClickOutside,
 };

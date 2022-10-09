@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {
-  COLORS, FONTS, RADIUS, UNIT, UNIT2,
+  COLORS, FONTS, RADIUS, UNIT, UNIT2, POINTS,
 } from 'mytheme/theme';
 
 type Props = {
@@ -55,6 +55,10 @@ const WordBox = styled.div<IWordBox>`
   transition: 0.2s all ease;
   :hover{
     border-color: ${(props) => (props.isRight || props.isWrong ? undefined : COLORS.GREY)};
+  }
+
+  @media (max-width: ${`${POINTS.sm}px`}){
+    width: 100%;
   }
   
   span {

@@ -1,25 +1,29 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { COLORS, UNIT2 } from 'mytheme/theme';
-import useIsMobile from 'hooks/useIsMobile';
+import { useIsMobile } from 'hooks';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
+import HeaderMobile from './HeaderMobile';
 
 type Props = {
   children: React.ReactNode,
 };
 
-const LayoutBox = styled.div`
+interface ILayout {
+  isMobile: boolean,
+}
+
+const LayoutBox = styled.div<ILayout>`
     display: flex;
     height: 100%;
     overflow: hidden;
+    flex-direction: ${(props) => (props.isMobile ? 'column' : 'row')};;
 `;
 
 const MainBox = styled.div`
     padding: ${UNIT2};
     flex-grow: 1;
-    border-left: 1px solid ${COLORS.BG_HOVER};
-    border-right: 1px solid ${COLORS.BG_HOVER};
     overflow-y: auto;
 
     ::-webkit-scrollbar {
@@ -36,30 +40,39 @@ const MainBox = styled.div`
 const NavBox = styled.div`
     width: 240px;
     padding: ${UNIT2};
+    border-right: 1px solid ${COLORS.BG_HOVER};
 `;
 
 const SideBox = styled.div`
     width: 300px;
     padding: ${UNIT2};
+    border-left: 1px solid ${COLORS.BG_HOVER};
 `;
 
 function Layout({ children }: Props) {
   const isMobile = useIsMobile();
-  console.log('isMobile', isMobile);
 
   return (
-    <LayoutBox>
-      <NavBox>
-        <Navbar />
-      </NavBox>
+    <LayoutBox isMobile={isMobile}>
+      {!isMobile && (
+        <NavBox>
+          <Navbar />
+        </NavBox>
+      )}
+
+      {isMobile && (
+        <HeaderMobile />
+      )}
 
       <MainBox>
         {children}
       </MainBox>
 
-      <SideBox>
-        <Sidebar />
-      </SideBox>
+      {!isMobile && (
+        <SideBox>
+          <Sidebar />
+        </SideBox>
+      )}
     </LayoutBox>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import routes from 'constants/routes';
 import { Link } from 'react-router-dom';
@@ -38,12 +39,16 @@ const MenuItem = styled.div`
   }
 `;
 
-function Menu() {
+type Props = {
+  onClickItem?: any,
+};
+
+function Menu({ onClickItem }:Props) {
   return (
     <ul>
       {routes.map(({ path, name, iconName }) => (
         <MenuItem key={path}>
-          <Link to={path}>
+          <Link to={path} onClick={onClickItem}>
             {ICONS[iconName]}
             {name}
           </Link>
