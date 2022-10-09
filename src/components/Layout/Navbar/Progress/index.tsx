@@ -4,7 +4,7 @@ import {
   COLORS, FONTS, UNIT, UNIT2,
 } from 'mytheme/theme';
 import money from 'assets/imgs/money.svg';
-import { publicApi } from 'api/publicApi';
+import { useProfileInfoQuery } from 'api/publicApi';
 
 const ProgressBox = styled.div`
   background-color: ${COLORS.BG_HOVER};
@@ -34,7 +34,7 @@ const BalanceBox = styled.div`
 `;
 
 function Progress() {
-  const { data } = publicApi.endpoints.profileInfo.useQueryState({});
+  const { data } = useProfileInfoQuery({});
   const { balance } = data || {};
 
   return (

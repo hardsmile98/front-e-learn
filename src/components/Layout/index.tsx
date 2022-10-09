@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { COLORS, UNIT2 } from 'mytheme/theme';
+import useIsMobile from 'hooks/useIsMobile';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
@@ -43,6 +44,9 @@ const SideBox = styled.div`
 `;
 
 function Layout({ children }: Props) {
+  const isMobile = useIsMobile();
+  console.log('isMobile', isMobile);
+
   return (
     <LayoutBox>
       <NavBox>

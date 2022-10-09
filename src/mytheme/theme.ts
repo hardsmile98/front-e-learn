@@ -25,9 +25,9 @@ export const UNIT = '8px';
 export const UNIT2 = '16px';
 
 export const POINTS = {
-  sm: '600px',
-  md: '900px',
-  lg: '1200px',
+  sm: 600,
+  md: 900,
+  lg: 1200,
 };
 
 export const ALERT = {

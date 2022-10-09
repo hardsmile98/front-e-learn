@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import avatar from 'assets/imgs/avatar.svg';
 import { COLORS, FONTS } from 'mytheme/theme';
-import { publicApi } from 'api/publicApi';
+import { useProfileInfoQuery } from 'api/publicApi';
 
 const ProfileBox = styled.div`
     text-align: center;
@@ -35,7 +35,7 @@ const CountWordsBox = styled.div`
 `;
 
 function Profile() {
-  const { data } = publicApi.endpoints.profileInfo.useQueryState({});
+  const { data } = useProfileInfoQuery({});
   const { name, words } = data || {};
 
   return (

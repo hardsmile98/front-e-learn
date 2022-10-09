@@ -17,6 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "noImplicitThis": false,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",

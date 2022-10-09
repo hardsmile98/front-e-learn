@@ -6,7 +6,7 @@ import {
 import { MdOutlineStarPurple500 as StarIcon } from 'react-icons/md';
 import ProgressBar from 'components/UI/ProgressBar';
 import Calendar from 'components/UI/Calendar';
-import { publicApi } from 'api/publicApi';
+import { useProfileInfoQuery } from 'api/publicApi';
 
 const StatisticsBox = styled.div`
   background-color: ${COLORS.BG_HOVER};
@@ -37,7 +37,7 @@ const ProgressBox = styled.div`
 `;
 
 function Statistics() {
-  const { data } = publicApi.endpoints.profileInfo.useQueryState({});
+  const { data } = useProfileInfoQuery({});
   const { level = {}, visit = {} } = data || {};
 
   return (
