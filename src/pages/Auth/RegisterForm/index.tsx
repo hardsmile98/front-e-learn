@@ -10,6 +10,10 @@ const NewAccountBox = styled.div`
   font-size: ${FONTS.small};
   cursor: pointer;
   text-align: center;
+
+  span {
+    font-weight: 500;
+  }
 `;
 
 type Props = {
@@ -63,7 +67,9 @@ function RegisterForm({ changeForm }: Props) {
       />
 
       <NewAccountBox onClick={changeForm}>
-        У вас уже есть аккаунт? Войти
+        У вас уже есть аккаунт?
+        {' '}
+        <span>Войти</span>
       </NewAccountBox>
 
       <div>
