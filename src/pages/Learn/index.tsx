@@ -26,12 +26,17 @@ function Learn() {
   const [selectAnswer, setSelectAnswer] = useState<number | null>(null);
 
   const [finishLearn] = useFinishLearnMutation();
-  const { data, isLoading, isError } = useGetLearnWordsQuery({ courseId }, {});
+  const { data, isLoading, isError } = useGetLearnWordsQuery(
+    { courseId },
+    { refetchOnMountOrArgChange: true },
+  );
 
   const countWords = data?.words?.length || 0;
   const moneyForWord = data?.moneyForWord || 2;
   const currentWord = data?.words[currentIndex] || {};
   const wordIds = data?.ids;
+
+  const isEmptyWords = data?.words.length === 0;
 
   const {
     type,
@@ -80,6 +85,15 @@ function Learn() {
       <ErrorPage
         title="Ошибка"
         error="Не удалось получить данные, попробуйте позже"
+      />
+    );
+  }
+
+  if (isEmptyWords) {
+    return (
+      <ErrorPage
+        title="Вы уже прошли данный курс"
+        error="Все слова из курса выучены, попробуйте другой курс"
       />
     );
   }
